@@ -1,0 +1,721 @@
+﻿<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <title>الأمين - المحادثات</title>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <!-- =============== Icon tab browser ================= -->
+	<link rel="icon" href="~/assets/img/AmeenIcon.png">
+    <!-- =============== css Link ================= -->
+	<link rel="stylesheet" href="~/assets/css/chat.css">
+     <!-- =============== Bootstrap Core CSS =============== -->
+     <link rel="stylesheet" href="~/assets/css/bootstrap.min.css" type="text/css">  
+     <!-- =============== Fontawsome Link ================= -->
+	<script src="https://kit.fontawesome.com/5cb72d26ec.js" crossorigin="anonymous"></script>
+    
+
+</head>
+
+@{ 
+    var user = ViewBag.user as myUser;
+    var role = ViewBag.role as string;
+    var notifications = ViewBag.userNotifications as List<UserNotification>;
+    var branch = ViewBag.branch as List<Branch>;
+    var mybranch = ViewBag.mybranch as Branch;
+    var personRooms = ViewBag.rooms as List<Room>;
+
+}
+
+<body>
+
+
+    @{
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////    Admin    /////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+    }
+    @if (role == "ADMIN")
+    {
+        <input type="hidden" id="inputForRoomId" roomID="" />
+        <div class="main">
+            <!-- Start First Page -->
+            <div id="top-bar" class="top-bar">
+                <h1 class="col-12 title">الأمين لخدمة العملاء</h1>
+                <div class="col-6 notification-top">
+
+                    <button data="notification" onclick="selectTopBar(this)">
+                        <i class="fa fa-bell"></i>
+                        <p>التنبيهات</p>
+                        <div id="notification"></div>
+                    </button>
+                </div>
+
+                <div class="col-6 message-top">
+                    <button data="group" onclick="selectTopBar(this)">
+                        <i class="fa fa-home"></i>
+                        <p>الأقسام</p>
+                        <div id="group" class="active"></div>
+
+                    </button>
+
+                </div>
+
+            </div>
+            <div id="chat-body" class="chat-body-click chat-body">
+
+
+                <!-- Start If Theres No Message -->
+                <!-- End If Theres No Message -->
+                @if (notifications.Count > 0)
+                {
+
+                    <div id="notification-body" class="notification-body">
+                        @foreach (var note in notifications)
+                        {
+                            <a href="#">
+                                <div onclick="showNote(this)" class="notification">
+                                    <div class="icon">
+                                        <i class="fa fa-bell"></i>
+                                    </div>
+                                    <h3 class="title">@note.Notification.Title</h3>
+                                    <p class="message">@note.Notification.NotificationMessage</p>
+                                </div>
+                            </a>
+                        }
+
+                        <!-- Start The Message Will SHow Here When He Click Any Notifications -->
+                        <!-- End -->
+                    </div>
+
+                }
+                else
+                {
+                    <div class="notification-body no-notification">
+                        <i class="far fa-bell"></i>
+                        <h1>لايوجد إشعارات</h1>
+                    </div>
+                }
+
+                <div class="group-body">
+
+                    <a href="#">
+                        <div branch="@user.BranchId" roleName="Customer Service" onclick="showUsersPage(); adimn_Roomes(this);">
+                            <i class="right-icon fa fa-tools"></i>
+                            <h2>السكرتارية وخدمة العملاء</h2>
+                            <i class="left-icon fa fa-chevron-left"></i>
+                        </div>
+                    </a>
+
+                    <a href="#">
+                        <div branch="@user.BranchId" roleName="Accounting" onclick="showUsersPage(); adimn_Roomes(this);">
+                            <i class="right-icon fa fa-calculator"></i>
+                            <h2>قسم الحسابات</h2>
+                            <i class="left-icon fa fa-chevron-left"></i>
+                        </div>
+                    </a>
+
+                    <a href="#">
+                        <div branch="@user.BranchId" roleName="Maintainence" onclick="showUsersPage(); adimn_Roomes(this);">
+                            <i class="right-icon fa fa-calculator"></i>
+                            <h2>قسم الصيانة و الدعم الفني</h2>
+                            <i class="left-icon fa fa-chevron-left"></i>
+                        </div>
+                    </a>
+
+                    <a href="#">
+                        <div branch="@user.BranchId" roleName="Programming" onclick="showUsersPage(); adimn_Roomes(this);">
+                            <i class="right-icon fa fa-calculator"></i>
+                            <h2>قسم البرمجة</h2>
+                            <i class="left-icon fa fa-chevron-left"></i>
+                        </div>
+                    </a>
+
+                    <a href="#">
+                        <div onclick="showUsersPage(); adimn_Individual_Roomes(@user.Id)">
+                            <i class="right-icon far fa-comments"></i>
+                            <h2>قسم الدردشة الخاصة</h2>
+                            <i class="left-icon fa fa-chevron-left"></i>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+            <!-- End First Page -->
+            <!-- Start chating Page -->
+            <div id="chating-page" class="chating-page">
+                <div class="top-bar">
+                    <div class="single-message">
+                        <div class="top">
+                            <h5 id="groub-name">قروب الصيانة</h5>
+                            <div id="top-chat" onclick="hideChatingPage()">
+                                <i class="fa fa-chevron-right"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="chat_messages" class="chating-body row">
+                    <!--هناء الشغل -->
+
+                </div>
+                <div class="bottom-chat row">
+                    <input id="messageInput" type="text" placeholder="أرسل رسالة ..." />
+                    <input type="file" style="display: none;" id="media" />
+                    <label for="media">
+                        <div class="img">
+                            <i class="fa fa-image"></i>
+                        </div>
+                    </label>
+                    <div onclick="send('@user.Id', 1 )" class="send">
+                        <i class="fa fa-location-arrow"></i>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- End chating Page -->
+            <!-- Start Select Users Page -->
+            <div id="select-users-page" class="row select-users-page">
+
+                <div onclick="hideSelectUsersPage()" id="back" class=" col-2 back">
+                    <i class="fa fa-chevron-right"></i>
+                </div>
+                <div class=" col-9 row top-bar">
+                    <div class="top-container">
+                        <div id="search" onclick="showSearchInput()" class="search">
+                            <i class="fa fa-search"></i>
+                        </div>
+
+                        <div onclick="showBuldeing()" id="bulding" class="bulding">
+                            <i class="fa fa-city"></i>
+                        </div>
+
+                        <div onclick="showBranch()" id="branch-selection" class="selection-branch">
+                            <h3 id="name">@mybranch.Name</h3>
+                            <i id="arrow" class="fa fa-arrow-up"></i>
+                        </div>
+
+                        <div id="search-input" class="search-input">
+                            <input class="form-controle" placeholder="ادخل اسم العميل...." type="text" />
+                        </div>
+                    </div>
+
+
+
+                    <div id="options" class="row  col-12 options">
+                        @foreach (var bran in branch)
+                        {
+                            <div class="radio">
+                                <h5>@bran.Name</h5>
+                                <input onclick="hideBranch(this)" @((bran.Id == mybranch.Id) ? "checked" : "") type="radio" name="location" value="@bran.Id" />
+                            </div>
+                        }
+
+                    </div>
+
+
+
+                </div>
+                <div id="main-body" class="main-body">
+                    <div id="adminRooms" class="body">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- End Select Users Page -->
+        </div>
+
+    }
+
+    @{
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////    Customer      ////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    }
+
+    @if (role == "Customer")
+    {
+        <input type="hidden" id="inputForRoomId" roomID="" />
+        <div class="main">
+            <!-- Start First Page -->
+            <div id="top-bar" class="top-bar">
+                <h1 class="col-12 title">الأمين لخدمة العملاء</h1>
+
+                <div class="col-6 notification-top">
+
+                    <button data="notification" onclick="selectTopBar(this)">
+                        <i class="fa fa-bell"></i>
+                        <p>التنبيهات</p>
+                        <div id="notification"></div>
+                    </button>
+                </div>
+
+                <div class="col-6 message-top">
+                    <button data="group" onclick="selectTopBar(this)">
+                        <i class="fa fa-home"></i>
+                        <p>الأقسام</p>
+                        <div id="group" class="active"></div>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div id="chat-body" class="chat-body-click chat-body">
+
+
+                <!-- Start If Theres No Message -->
+                <!-- End If Theres No Message -->
+                @if (notifications.Count > 0)
+                {
+
+                    <div id="notification-body" class="notification-body">
+                        @foreach (var note in notifications)
+                        {
+                            <a href="#">
+                                <div onclick="showNote(this)" class="notification">
+                                    <div class="icon">
+                                        <i class="fa fa-bell"></i>
+                                    </div>
+                                    <h3 class="title">@note.Notification.Title</h3>
+                                    <p class="message">@note.Notification.NotificationMessage</p>
+                                </div>
+                            </a>
+                        }
+
+                        <!-- Start The Message Will SHow Here When He Click Any Notifications -->
+                        <!-- End -->
+                    </div>
+
+                }
+                else
+                {
+                    <div class="notification-body no-notification">
+                        <i class="far fa-bell"></i>
+                        <h1>لايوجد إشعارات</h1>
+                    </div>
+                }
+
+                <div id="notification-body2" style="display: none;" class="notification-body">
+                    <div id="not-page" class="notification notification-page">
+                        <div onclick="hideNote()" class="notification-icon icon">
+                            <i class="fa fa-chevron-right"></i>
+                        </div>
+                        <h3 class="title">منتج جديد</h3>
+                        <p class="message">لقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأمام</p>
+                    </div>
+                </div>
+
+
+                <div class="group-body">
+
+                    @foreach (Room personRoom in personRooms)
+                    {
+                        switch (personRoom.myRoles.Name)
+                        {
+                            case "Customer Service":
+                                <a href="#">
+                                    <div user_id="@user.Id" room_id="@personRoom.Id" onclick="showGropPage(this); customer_Roomes(this);">
+                                        <i class="right-icon fa fa-tools"></i>
+                                        <h2>السكرتارية وخدمة العملاء</h2>
+                                        <i class="left-icon fa fa-chevron-left"></i>
+                                    </div>
+                                </a>
+                                break;
+
+                            case "Accounting":
+                                <a href="#">
+                                    <div user_id="@user.Id" room_id="@personRoom.Id" onclick="showGropPage(this); customer_Roomes(this);">
+                                        <i class="right-icon fa fa-calculator"></i>
+                                        <h2>قسم الحسابات</h2>
+                                        <i class="left-icon fa fa-chevron-left"></i>
+                                    </div>
+                                </a>
+                                break;
+
+                            case "Maintainence":
+                                <a href="#">
+                                    <div user_id="@user.Id" room_id="@personRoom.Id" onclick="showGropPage(this); customer_Roomes(this);">
+                                        <i class="right-icon fa fa-calculator"></i>
+                                        <h2>قسم الصيانة و الدعم الفني</h2>
+                                        <i class="left-icon fa fa-chevron-left"></i>
+                                    </div>
+                                </a>
+                                break;
+
+                            case "Programming":
+                                <a href="#">
+                                    <div user_id="@user.Id" room_id="@personRoom.Id" onclick="showGropPage(this); customer_Roomes(this);">
+                                        <i class="right-icon fa fa-calculator"></i>
+                                        <h2>قسم البرمجة</h2>
+                                        <i class="left-icon fa fa-chevron-left"></i>
+                                    </div>
+                                </a>
+                                break;
+                        }
+                    }
+
+
+
+
+
+
+
+
+                    <a href="#">
+                        <div onclick="showGropPage(this)">
+                            <i class="right-icon fa fa-code"></i>
+                            <h2>محادثة المدراء</h2>
+                            <i class="left-icon fa fa-chevron-left"></i>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+            <!-- End First Page -->
+            <!-- Start chating Page -->
+            <div id="chating-page" class="chating-page">
+                <div class="top-bar">
+                    <div class="single-message">
+                        <div class="top">
+                            <h5 id="groub-name"></h5>
+                            <div id="top-chat" onclick="hideChatingPage()">
+                                <i class="fa fa-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="chat_messages" class="chating-body row">
+
+                </div>
+
+                <div class="bottom-chat row">
+                    <input id="messageInput" type="text" placeholder="أرسل رسالة ..." />
+                    <input type="file" style="display: none;" id="media" />
+                    <label for="media">
+                        <div class="img">
+                            <i class="fa fa-image"></i>
+                        </div>
+                    </label>
+                    <div onclick="send('@user.Id', 1 )" class="send">
+                        <i class="fa fa-location-arrow"></i>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- End chating Page -->
+            <!-- Start Select Users Page -->
+            <div id="select-users-page" class="row select-users-page">
+
+                <div onclick="hideSelectUsersPage()" id="back" class=" col-2 back">
+                    <i class="fa fa-chevron-right"></i>
+                </div>
+                <div class=" col-9 row top-bar">
+                    <div class="top-container">
+                        <div id="search" onclick="showSearchInput()" class="search">
+                            <i class="fa fa-search"></i>
+                        </div>
+
+                        <div onclick="showBuldeing()" id="bulding" class="bulding">
+                            <i class="fa fa-city"></i>
+                        </div>
+
+                        <div onclick="showBranch()" id="branch-selection" class="selection-branch">
+                            <h3 id="name">@mybranch.Name</h3>
+                            <i id="arrow" class="fa fa-arrow-up"></i>
+                        </div>
+
+                        <div id="search-input" class="search-input">
+                            <input class="form-controle" placeholder="ادخل اسم العميل...." type="text" />
+                        </div>
+                    </div>
+
+
+
+                    <div id="options" class="row  col-12 options">
+                        @foreach (var bran in branch)
+                        {
+                            <div class="radio">
+                                <h5>@bran.Name</h5>
+                                <input onclick="hideBranch(this)" @((bran.Id == mybranch.Id) ? "checked" : "") type="radio" name="location" value="@bran.Id" />
+                            </div>
+                        }
+                    </div>
+
+
+
+                </div>
+                <div id="main-body" class="main-body">
+                    <div class="body">
+                        <div onclick="showChatingUserPage(this);" class="body-user">
+                            <div class="col-4 icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="col-5 name">
+                                <h3>ياسر حمدان</h3>
+                                <p>وينك</p>
+                            </div>
+                            <div class="col-3 time">
+                                <p>AM 2:30</p>
+                                <div class="state"></div>
+                            </div>
+                        </div>
+                        <div class="body-user">
+                            <div class="icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="name">
+                                <h3>yasesr</h3>
+                                <p>hellow</p>
+                            </div>
+                            <div class="time">
+                                <p>AM 2:30</p>
+                            </div>
+                        </div>
+                        <div class="body-user">
+                            <div class="icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="name">
+                                <h3>yasesr</h3>
+                                <p>hellow</p>
+                            </div>
+                            <div class="time">
+                                <p>AM 2:30</p>
+                            </div>
+                        </div>
+                        <div class="body-user">
+                            <div class="icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="name">
+                                <h3>yasesr</h3>
+                                <p>hellow</p>
+                            </div>
+                            <div class="time">
+                                <p>AM 2:30</p>
+                            </div>
+                        </div>
+                        <div class="body-user">
+                            <div class="icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="name">
+                                <h3>The Last</h3>
+                                <p>hellow</p>
+                            </div>
+                            <div class="time">
+                                <p>AM 2:30</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- End Select Users Page -->
+        </div>
+    }
+
+
+    @{
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////    Groups      //////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+    }
+
+    @if (role == "Customer Service" || role == "Accounting" || role == "Maintainence" || role == "Programming")
+    {
+        <input type="hidden" id="inputForRoomId" roomID="" />
+        <div class="main">
+            <!-- Start First Page -->
+            <div style="width: 100%;position:absolute; z-index: -1; opacity: 0;" id="top-bar" class="top-bar">
+                <div onclick="showUsersPage2()" style="position:absolute; top:0%; right:0%; width:30%; height:100%; justify-content:center;cursor:pointer;"><i class="user">gggg</i></div>
+                <h1 style="display:flex; justify-content:center; align-items:center; width:70%; margin: 0;" class="col-12 title">التنبيهات</h1>
+
+            </div>
+            <div style="position:absolute; z-index: -1; opacity: 0; width: 100%;" id="chat-body" class="chat-body">
+
+
+                <!-- Start If Theres No Message -->
+                <!-- End If Theres No Message -->
+                @if (notifications.Count > 0)
+                {
+
+                    <div style="position:relative; z-index: -1; opacity: 0;" id="notification-body" class="notification-body">
+                        @foreach (var note in notifications)
+                        {
+                            <a href="#">
+                                <div onclick="showNote(this)" class="notification">
+                                    <div class="icon">
+                                        <i class="fa fa-bell"></i>
+                                    </div>
+                                    <h3 class="title">@note.Notification.Title</h3>
+                                    <p class="message">@note.Notification.NotificationMessage</p>
+                                </div>
+                            </a>
+                        }
+
+                        <!-- Start The Message Will SHow Here When He Click Any Notifications -->
+                        <!-- End -->
+                    </div>
+
+                }
+                else
+                {
+                    <div class="notification-body no-notification">
+                        <i class="far fa-bell"></i>
+                        <h1>لايوجد إشعارات</h1>
+                    </div>
+                }
+
+                <div id="notification-body2" style="display: none;" class="notification-body">
+                    <div id="not-page" class="notification notification-page">
+                        <div onclick="hideNote()" class="notification-icon icon">
+                            <i class="fa fa-chevron-right"></i>
+                        </div>
+                        <h3 class="title">منتج جديد</h3>
+                        <p class="message">لقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأماملقد تم أنتاج منتج جديد وسيتم إطلاقة قريبا  وهاذا يدل على أن القادم أفضل لذا تقدموا نحوا الأمام</p>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <!-- End First Page -->
+            <!-- Start chating Page -->
+            <div id="chating-page" class="chating-page">
+                <div class="top-bar">
+                    <div class="single-message">
+                        <div class="top">
+                            <h5 id="groub-name">قروب الصيانة</h5>
+                            <div id="top-chat" onclick="hideChatingPage()">
+                                <i class="fa fa-chevron-right"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="chat_messages" class="chating-body row">
+                </div>
+                <div class="bottom-chat row">
+                    <input id="messageInput" type="text" placeholder="أرسل رسالة ..." />
+                    <input type="file" style="display: none;" id="media" />
+                    <label for="media">
+                        <div class="img">
+                            <i class="fa fa-image"></i>
+                        </div>
+                    </label>
+                    <div onclick="send('@user.Id', 1 )" class="send">
+                        <i class="fa fa-location-arrow"></i>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- End chating Page -->
+            <!-- Start Select Users Page -->
+            <div style="z-index: 1; opacity: 1" id="select-users-page" class="row select-users-page">
+
+                <div onclick="hideSelectUsersPage2()" id="back" class=" col-2 back">
+                    <i class="fa fa-bell"></i>
+                </div>
+                <div class=" col-9 row top-bar">
+                    <div class="top-container">
+                        <div id="search" onclick="showSearchInput()" class="search">
+                            <i class="fa fa-search"></i>
+                        </div>
+
+                        <div onclick="showBuldeing()" id="bulding" class="bulding">
+                            <i class="fa fa-city"></i>
+                        </div>
+
+                        <div onclick="showBranch()" id="branch-selection" class="selection-branch">
+                            <h3 id="name">@mybranch.Name</h3>
+                            <i id="arrow" class="fa fa-arrow-up"></i>
+                        </div>
+
+                        <div id="search-input" class="search-input">
+                            <input class="form-controle" placeholder="ادخل اسم العميل...." type="text" />
+                        </div>
+                    </div>
+
+
+
+                    <div id="options" class="row  col-12 options">
+                        @foreach (var bran in branch)
+                        {
+                            <div class="radio">
+                                <h5>@bran.Name</h5>
+                                <input onclick="hideBranch(this)" @((bran.Id == mybranch.Id) ? "checked" : "") type="radio" name="location" value="@bran.Id" />
+                            </div>
+                        }
+                    </div>
+
+
+
+                </div>
+                <div id="main-body" class="col-12 main-body">
+                    <div class="body">
+                        @foreach (Room room in personRooms)
+                        {
+                            if (room.Chats.Count == 0)
+                                continue;
+                            <div user_id="@user.Id" room_id="@room.Id" onclick="showChatingUserPage(this);group_Roomes(this)" class="body-user">
+                                <div class="col-4 icon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <div class="col-5 name">
+                                    <h3>@room.myUser.UserName</h3>
+                                    <p>@room.Chats.Last().Message</p>
+                                </div>
+                                <div class="col-3 time">
+                                    <p onload="theTime2(@room.Chats.Last().Date)"></p>
+                                    <div class="state"></div>
+                                </div>
+                            </div>
+                        }
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- End Select Users Page -->
+        </div>
+    }
+    <script>console.log("Yasser")</script>
+    <script src="~/assets/js/moment.js"></script>
+    <script src="~/assets/js/jquery.js"></script>
+    <script src="~/lib/aspnet/signalr/dist/browser/signalr.min.js"></script>
+    <script asp-append-version="true" src="~/assets/js/Site.js"></script>
+    <script asp-append-version="true" dir="rtl" type="text/javascript" src="~/assets/js/chat.js" charset="utf-8"></script>
+
+</body>
+</html>

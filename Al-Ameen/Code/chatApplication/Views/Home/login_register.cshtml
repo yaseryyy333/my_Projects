@@ -1,0 +1,410 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأمين - تسجيل الدخول</title>
+
+    <!-- =============== Icon tab browser ================= -->
+    <link rel="icon" href="~/assets/img/AmeenIcon.png">
+    <!-- =============== css Link ================= -->
+    <link rel="stylesheet" href="~/assets/css/login&register.css">
+    <!-- =============== Fontawsome Link ================= -->
+    <script src="https://kit.fontawesome.com/5cb72d26ec.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- Start First Page -->
+    <div id="first-page" class="main first_page">
+
+        <div class="top-img">
+            <img src="~/assets/img/sign_register/main_top.png" />
+        </div>
+
+        <div class="main-img">
+            <img src="~/assets/img/AmeenIcon.png" />
+        </div>
+
+        <div class="content">
+            <div class="page_content">
+                <div>
+                    <button onclick="showSignIn()">تسجيل الدخول</button>
+                </div>
+                <div>
+                    <button onclick="showRegister()">إنشاء حساب</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-img">
+            <img src="~/assets/img/sign_register/main_bottom.png" />
+        </div>
+
+    </div>
+    <!-- End First Page -->
+    <!-- Start Sign In Page -->
+    <div id="AlertId" style="position:absolute; color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;width: 250px;word-break: break-word;z-index: -1;opacity: 0;top: 70px;padding: 10px;border-radius: 0.25rem;transition:all 0.3s; text-align:center">
+    </div>
+    <div style="opacity: 0;" id="sign_in" class="main sign_in">
+
+        <div class="top-img">
+            <img src="~/assets/img/sign_register/main_top.png" />
+        </div>
+        <div class="main-img">
+            <img src="~/assets/img/sign_register/login-2.png" />
+        </div>
+
+        <div class="content">
+            <div class="page_content">
+                <div>
+                    <div style="position: relative">
+                        <i class="phone fa fa-phone-alt"></i>
+                        <input required id="PhoneNumberInput" type="text" placeholder="أكتب رقمك" />
+                    </div>
+                    <span style="color:red; font-size:15px" id="PhoneNumberInput-error"></span>
+                </div>
+                <div>
+                    <div style="position:relative">
+                        <i onclick="displayPassword(this)" class="eye fa fa-eye"></i>
+                        <input min="5" required id="PasswordInput" type="password" placeholder="كلمة المرور" />
+                        <i class="lock fa fa-lock"></i>
+                    </div>
+                    <span style="color:red; font-size:15px" class="text-danger" id="PasswordInput-error"></span>
+                </div>
+                <div>
+                    <button onclick="Login()" type="submit">تسجيل الدخول</button>
+                </div>
+                <div>
+                    <a onclick="showRegister()" href="#">لاتملك حساب؟ إنشاء حساب</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bottom-img">
+            <img style="z-index : -1" src="~/assets/img/sign_register/login_bottom.png" />
+        </div>
+
+    </div>
+    <!-- End Sign In Page  -->
+    <!-- Start register page -->
+    <div id="register" class="main register">
+
+        <div class="top-img">
+            <img src="~/assets/img/sign_register/signup_top.png" />
+        </div>
+        <div class="main-img">
+            <img src="~/assets/img/sign_register/signUp.png" />
+        </div>
+            <div class="content">
+                <div class="page_content">
+                    <div>
+                        <i class="phone fa fa-user"></i>
+                        <input id="fullNameRegister" type="text" placeholder="الأسم الكامل" />
+                    </div>
+                    <span style="color:red; font-size:15px" class="text-danger" id="nameRegister-error"></span>
+                    <div>
+                        <i class="phone fa fa-phone-alt"></i>
+                        <input id="phoneNumberRegister" type="text" placeholder="رقم الهاتف" />
+                    </div>
+                    <span style="color:red; font-size:15px" class="text-danger" id="phoneNumberRegister-error"></span>
+
+                    <div class="selection_branch">
+                        <i class="building fa fa-city"></i>
+                        <div onclick="showBranch()">
+                            <p id="branch-text">إختار فرعك</p>
+                        </div>
+
+                        <i id="arrow" class="arrow fa fa-arrow-up"></i>
+                        <div id="branch" class="branch">
+                            @{
+                                foreach (Branch branch in ViewBag.Branches as List<Branch>)
+                                {
+                                    <div>
+                                        <label>@branch.Name</label>
+                                        <input onclick="selectedBranch(this); showBranch()" type="radio" name="branch" data="@branch.Name" value=@branch.Id />
+                                    </div>
+                                }
+                            }
+                            @*<div>
+                    <label>جدة</label>
+                    <input onclick="selectedBranch(this); showBranch()" type="radio" name="branch" value="جدة" />
+                </div>
+                <div>
+                    <label>مكة</label>
+                    <input onclick="selectedBranch(this); showBranch()" type="radio" name="branch" value="مكة" />
+                </div>*@
+
+                        </div>
+                    </div>
+                    <span style="color:red; font-size:15px" class="text-danger" id="branchRegister-error"></span>
+                    <div>
+                        <i class="location fa fa-map-marker-alt"></i>
+                        <input id="addressRegister" type="text" placeholder="العنوان" />
+                    </div>
+                    <span style="color:red; font-size:15px" class="text-danger" id="addressRegister-error"></span>
+                    <div>
+                        <div style="position:relative">
+                            <i style="bottom: 25px" onclick="displayPassword(this)" class="eye fa fa-eye"></i>
+                            <input id="passwordRegister-input" type="password" placeholder="كلمة المرور" />
+                            <i style="bottom: 25px" class="lock fa fa-lock"></i>
+                        </div>
+                        <span style="color:red; font-size:15px" class="text-danger" id="passwordRegister-error"></span>
+
+                        <div>
+                            <button onclick="CreateUser()" type="submit">إنشاء حساب</button>
+                        </div>
+                        <div style="padding-bottom: 20px;">
+                            <a onclick="showSignIn()" href="#">لديك حساب مسبقا؟ سجل الدخول</a>
+                        </div>
+                    </div>
+
+                </div>
+
+        <div class="bottom-img">
+            <img src="~/assets/img/sign_register/main_bottom.png" />
+        </div>
+
+    </div>
+    <!-- End register Page  -->
+    <!-- =============== Scripts Link ================= -->
+    <script src="~/assets/js/login_register.js" async></script>
+    <script src="~/lib/jquery/dist/jquery-3.6.0.min.js"></script>
+
+
+
+    <script>
+        //Start Function To SigIn ======================
+        function Login() {
+
+            //Start variables Forms
+            var password = document.getElementById("PasswordInput");
+            var phoneNumber = document.getElementById("PhoneNumberInput");
+            var passworderror = document.getElementById("PasswordInput-error");
+            var phoneNumbererror = document.getElementById("PhoneNumberInput-error");
+            var AlertItem = document.getElementById('AlertId');
+
+            //End Variables Forms
+
+            //Start validation
+            if (phoneNumber.validity.valueMissing) {
+                phoneNumbererror.innerHTML = "يجب ادخال رقم الجوال";
+
+            }
+            else {
+                phoneNumbererror.innerHTML = "";
+            }
+            if (password.validity.valueMissing) {
+                passworderror.innerHTML = "يجب ادخال كلمة المرور";
+            }
+            else {
+                passworderror.innerHTML = "";
+            }
+            //End validation
+
+            //Start Variables Of Ajax
+            var data = {
+                Password: password.value,
+                PhoneNumber: phoneNumber.value
+            };
+            var dataSend = JSON.stringify(data);
+            var url = "/api/user/SignIn";
+            //End Variables Of Ajax
+
+
+
+            //Start Ajax
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: dataSend,
+                //headers: { "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ5YXNzc2VyOCIsImp0aSI6IjU5NDdkM2UyLTU4NTYtNDY2Yi04MTVjLTkxN2FlYTI0ZTM2ZCIsImVtYWlsIjoieWFzZXI4QGdtYWlsLmNvbSIsInVpZCI6ImY4ZmU5YTFiLWY3MTAtNDZmZC05YjVjLTFkNGUyMzNkOWY3MSIsInJvbGVzIjoidXNlciIsImV4cCI6MTY0NDM1NDAwMCwiaXNzIjoiU2VjdXJlQXBpIiwiYXVkIjoiU2VjdXJlQXBpVXNlciJ9.dnByVqeNiohYfBIQLmACx4druQbBQttCTTqxzkmzfZ8"},
+                contentType: "application/json",
+                dataType: "json",
+                success: function (DataReceive) {
+                    DataReceive
+                    if (!DataReceive.isAuthenticated) {
+
+                        AlertItem.innerHTML = DataReceive.message;
+                        AlertItem.style.opacity = '1';
+                        AlertItem.style.zIndex = '100';
+                        setTimeout(function () { AlertFunction(AlertItem); }, 3000);
+                    }
+                    else {
+                        localStorage.setItem("id", DataReceive.id);
+                        localStorage.setItem("Authorization", DataReceive.token);
+                        localStorage.setItem("isAuthenticated", DataReceive.isAuthenticated);
+                        location.href = '/?id=' + localStorage.getItem('id');
+
+                    }
+
+                },
+                error: function (error) {
+                    if (!(phoneNumber.validity.valueMissing || password.validity.valueMissing)) {
+                        AlertItem.style.zIndex = '100';
+                        AlertItem.style.opacity = '1';
+                        AlertItem.innerHTML = "حدث خطاء غير متوقع";
+                        setTimeout(function () { AlertFunction(AlertItem); }, 3000);
+                    }
+
+
+
+                    //console.log(error.responseJSON.errors.PhoneNumber[0]);
+                }
+            })
+            //End Ajax
+
+        }
+
+        function AlertFunction(element) {
+            element.style.opacity = '0';
+            element.style.zIndex = '-1';
+        }
+        //End Function To SignIn==============
+    </script>
+
+
+    @*============================================================================================*@
+
+    <script>
+        //Start Function To Create User ======================
+        function CreateUser() {
+
+            //Start variables Forms
+            var passwordRegister = document.getElementById("passwordRegister-input");
+            var phoneNumberRegister = document.getElementById("phoneNumberRegister");
+            var branchRegister = document.getElementById("branch-text");
+            var fullNameRegister = document.getElementById("fullNameRegister");
+            var addressRegister = document.getElementById('addressRegister');
+            var AlertItem = document.getElementById('AlertId');
+            //////////////////////////////////////////////////////////////////////////
+            var passwordRegisterError = document.getElementById("passwordRegister-error");
+            var phoneNumberRegisterError = document.getElementById("phoneNumberRegister-error");
+            var branchRegisterError = document.getElementById("branchRegister-error");
+            var fullNameRegisterError = document.getElementById("nameRegister-error");
+            var addressRegisterError = document.getElementById('addressRegister-error');
+
+            //End Variables Forms
+
+
+            //console.log(passwordRegister.value);
+            //console.log(phoneNumberRegister.value);
+            //console.log(branchRegister.getAttribute("data"));
+            //console.log(fullNameRegister.value);
+            //console.log(addressRegister.value);
+            //console.log("==========================================================================");
+            //console.log("password"+passwordRegisterError);
+            //console.log("phonenumber"+phoneNumberRegisterError);
+            //console.log("branch"+branchRegisterError);
+            //console.log("Name"+fullNameRegisterError);
+            //console.log("address"+addressRegisterError);
+
+
+            //Start validation
+            if (passwordRegister.value == "") {
+                passwordRegisterError.innerHTML = "يجب ادخال كلمة المرور";
+            }
+            else {
+                passwordRegisterError.innerHTML = "";
+            }
+            if (phoneNumberRegister.value == "") {
+                phoneNumberRegisterError.innerHTML = "يجب ادخال رقم الجوال";
+            }
+            else {
+                phoneNumberRegisterError.innerHTML = "";
+            }
+            if (branchRegister.getAttribute("data") == null) {
+                branchRegisterError.innerHTML = "يجب تحديد الفرع";
+            }
+            else {
+                branchRegisterError.innerHTML = "";
+            }
+            if (fullNameRegister.value == "") {
+                fullNameRegisterError.innerHTML = "الرجاء ادخال اسمك";
+            }
+            else {
+                fullNameRegisterError.innerHTML = "";
+            }
+            if (addressRegister.value == "") {
+                addressRegisterError.innerHTML = "يجب ادخال عنوانك";
+            }
+            else {
+                addressRegisterError.innerHTML = "";
+            }
+            //End validation
+
+            //Start Variables Of Ajax
+            var data = {
+                Password: passwordRegister.value,
+                PhoneNumber: phoneNumberRegister.value,
+                BranchID: parseInt(branchRegister.getAttribute("data")),
+                Name: fullNameRegister.value,
+                Address: addressRegister.value
+            };
+            var dataSend = JSON.stringify(data);
+            //console.log(dataSend);
+            var url = "/api/user/CreateUser";
+            //End Variables Of Ajax
+
+
+
+            //Start Ajax
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: dataSend,
+                //headers: { "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ5YXNzc2VyOCIsImp0aSI6IjU5NDdkM2UyLTU4NTYtNDY2Yi04MTVjLTkxN2FlYTI0ZTM2ZCIsImVtYWlsIjoieWFzZXI4QGdtYWlsLmNvbSIsInVpZCI6ImY4ZmU5YTFiLWY3MTAtNDZmZC05YjVjLTFkNGUyMzNkOWY3MSIsInJvbGVzIjoidXNlciIsImV4cCI6MTY0NDM1NDAwMCwiaXNzIjoiU2VjdXJlQXBpIiwiYXVkIjoiU2VjdXJlQXBpVXNlciJ9.dnByVqeNiohYfBIQLmACx4druQbBQttCTTqxzkmzfZ8"},
+                contentType: "application/json",
+                dataType: "json",
+                success: function (DataReceive) {
+                    if (!DataReceive.isAuthenticated) {
+                        console.log(DataReceive);
+                        AlertItem.innerHTML = DataReceive.message;
+                        AlertItem.style.opacity = '1';
+                        AlertItem.style.zIndex = '100';
+                        setTimeout(function () { AlertFunction(AlertItem); }, 3000);
+                    }
+                    else {
+                        localStorage.setItem("isAuthenticated", DataReceive.isAuthenticated);
+                        localStorage.setItem("Authorization", DataReceive.token);
+                        localStorage.setItem("id", DataReceive.id);
+                        location.href = '/?id=' + localStorage.getItem('id');
+
+
+                    }
+                },
+                error: function (error) {
+                    if (
+                        passwordRegister.value != "" &&
+                        phoneNumberRegister.value != "" &&
+                        branchRegister.getAttribute("data") != null &&
+                        fullNameRegister.value != "" &&
+                        addressRegister.value != ""
+                    ) {
+                        AlertItem.style.zIndex = '100';
+                        AlertItem.style.opacity = '1';
+                        AlertItem.innerHTML = error.message;
+                        setTimeout(function () { AlertFunction(AlertItem); }, 3000);
+                    }
+
+
+
+
+
+                    //console.log(error.responseJSON.errors.PhoneNumber[0]);
+                }
+            })
+            //End Ajax
+
+        }
+
+ //End Function To Create User==============
+    </script>
+
+
+
+
+
+</body>
+</html>

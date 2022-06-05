@@ -1,0 +1,35 @@
+﻿
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>test</title>
+</head>
+<body>
+
+    <h1>Helow Test Page</h1>
+    <button onclick="test()">Try The redirect</button>
+
+    <script src="~/assets/js/jquery.js"></script>
+
+    <script>
+        function test() {
+            var url = "/api/user/TryMe";
+            //End Variables Of Ajax
+            //Start Ajax
+            $.ajax({
+                type: "post",
+                url: url,
+                headers: { "Authorization": "Bearer " + localStorage.getItem("Authorization") },
+                contentType: "application/json",
+                dataType: "json",
+
+            });
+
+        }
+    </script>
+</body>
+
+</html>
