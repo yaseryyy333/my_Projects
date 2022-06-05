@@ -1,0 +1,92 @@
+﻿@model IList<Matjary.Models.OrderProduct>
+
+@using Matjary.Controllers.handle_session_objects;
+@{
+    ViewData["Title"] = "ShoppingCart";
+    int discount = 0;
+    List<Products> p = ViewBag.photo;
+    string photo = "";
+    List<int> total = new List<int>();
+    int allTotal = 0;
+    List<Products> GetProductsFromSession = Context.Session.GetComplexData<List<Products>>("Products");
+    if (GetProductsFromSession == null) { GetProductsFromSession = new List<Products>(); }
+
+}
+
+<script src="~/Dashboard/js/jquery-3.4.1.min.js"></script>
+<script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+<!-- Start Content -->
+<div class=" top-path">
+    <span>الحساب الشخصي</span>
+    <i class="fa fa-angle-left"></i>
+    <span>سلة التسوق</span>
+</div>
+<div class="cart-info">
+    <i class="fa fa-cart-plus"></i>
+    <span> سلة التسوق</span>
+</div>
+<div class="list-of-cart">
+    <form asp-action="ShoppingCartAddPaymentPhoto" method="get">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">حذف</th>
+                    <th scope="col">العنصر</th>
+                    <th scope="col">سعر الحبة</th>
+                    <th scope="col">السعر مع الخصم</th>
+                    <th scope="col">قيمة الخصم</th>
+                    <th scope="col">الكمية</th>
+                    <th scope="col">الاجمالي</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @for (int i = 0; i < GetProductsFromSession.Count(); i++)
+                {
+                    discount = Convert.ToInt32((GetProductsFromSession[i].SellPrice * (GetProductsFromSession[i].DiscountRate / 100)));
+
+                    for (int j = 0; j < p.Count(); j++)
+                    {
+                        if (GetProductsFromSession[i].Id == p[j].Id)
+                        {
+                            photo = p[j].ProductPhoto.FirstOrDefault().Photo;
+                            break;
+                        }
+                    }
+
+                <tr>
+                    <td><a href="" onclick="h(this)" id="deleteFromSession" data-ajax="true" data-ajax-loading="#loader" data-ajax-method="get" data-ajax-url="@Url.Action("SessionManagment", "Store", new{ id=GetProductsFromSession[i].Id ,delete=true})"><i class="fa fa-trash-alt"></i></a></td>
+                    <td class="row">
+                        <div class="col-4">
+                            <img src="~/Dashboard/img/products/@photo" alt="" width="50" height="auto">
+                        </div>
+                        <div class="col-6">@GetProductsFromSession[i].Name</div>
+                    </td>
+
+                    <td>@(GetProductsFromSession[i].SellPrice) ر.ي</td>
+                    <td>@(GetProductsFromSession[i].SellPrice - discount) ر.ي</td>
+                    <td>@(discount) ر.ي</td>
+                    <td>
+                        <input asp-for="@Model[i].Qty" onchange="ChangeQTY(this,@(GetProductsFromSession[i].SellPrice-discount),@i)" min="1" type="number" value="1">
+                    </td>
+                    <td id="total-@i">@(GetProductsFromSession[i].SellPrice - discount) ر.ي</td>
+                    <input asp-for="@Model[i].ProductId" value="@GetProductsFromSession[i].Id" type="hidden" />
+                    <input asp-for="@Model[i].SellPrice" value="@GetProductsFromSession[i].SellPrice" type="hidden" />
+                    <input asp-for="@Model[i].Cost" value="@GetProductsFromSession[i].Cost" type="hidden" />
+                    <input asp-for="@Model[i].Discount" value="@discount" type="hidden" />
+                </tr>
+
+                }
+
+            </tbody>
+        </table>
+        <hr>
+        <div> <input id="NextButtonInShoppingCart" type="submit" value="التالي"></div>
+    </form>
+
+
+</div>
+
+
+<!-- End Contenet -->

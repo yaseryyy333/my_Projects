@@ -1,0 +1,179 @@
+﻿@model IEnumerable<Matjary.Models.Invoices>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+}
+
+
+
+<!--Start Page Content-->
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title">
+            <i class="fa fa-file-invoice"></i>
+            <h6>فواتير المشتريات</h6>
+            <i class="fa fa-angle-left"></i>
+            <h6>قائمة فواتير المشتريات</h6>
+        </div>
+        <div class="page-info shadow">
+            <div class="title">
+                <i class="fa fa-file-invoice"></i>
+                <h6>قائمة فواتير المشتريات</h6>
+            </div>
+            <div class="content">
+                <div class="before-table">
+                    <div class="add-button">
+                        <a class="btn" href="#">
+                            <i class="fa fa-plus"></i>
+                            اضف فاتورة جديدة
+                        </a>
+                    </div>
+                    <div class="search-form">
+                        <form action="" method="">
+                            <!--Add Form Details Here-->
+                            <select class="custom-select mr-sm-2" name="">
+                                <option selected="">بحث بحسب</option>
+                                <option value="">رقم الفاتورة</option>
+                            </select>
+                            <input type="text" class="form-control" name="">
+                            <input type="submit" class="btn ml-sm-2" value="بحث">
+                        </form>
+                    </div>
+                </div>
+                <div class="table-info">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>اسم المورد</th>
+                                <th>النوع</th>
+                                <th>الاجمالي</th>
+                                <th>المدفوع</th>
+                                <th>عمليات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>1</td>
+                                    <td>@item.Person.Name</td>
+                                    <td>@item.Invoice_Type</td>
+                                    <td>@item.Total SR</td>
+                                    <td>@item.Payments SR</td>
+                                    <td>
+                                        <a href="#"><i class="fa fa-print fa-fw op"></i></a>
+                                        <a asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-eye fa-fw op"></i></a>
+                                        <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                        <a href="#" onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                    </table>
+                </div>
+                <div class="pagin">
+                    <!--Put Pagination ASP CORE Here-->
+                    <partial name="_Pager" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page Content-->
+@*<h1>Index</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Invoice_Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Vat_Rate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalDiscount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalCost)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalVat)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Total)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Payments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Note)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Person)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApplicationUser)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Invoice_Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vat_Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalDiscount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalCost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalVat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Payments)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Person.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@

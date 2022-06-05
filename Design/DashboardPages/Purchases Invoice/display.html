@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Ibrahim BarBouD">
+    <title>Display Purchases Invoice</title>
+    <!--CSS file-->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="../css/all.min.css" rel="stylesheet" />
+    <link href="../css/main.css" rel="stylesheet" />
+    <!--Google font-->
+    <link rel="stylesheet" href="../css/Tajawalfont.css">
+</head>
+<body>
+    <!--Start Mobile Navigation-->
+    <div class="mobile-nav" id="mobile-navigation">
+        <div class="close-nav">
+            <i class="fa fa-times" onclick="closeMobileNav()"></i>
+        </div>
+        <div class="list">
+            <ul class="navbar-nav">
+                <li>
+                    <a href="#">
+                        <span>الصفحة الرئيسية</span>
+                    </a>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>فواتير المشتريات</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة فواتير المشتريات</a></li>
+                        <li><a href="#">إنشاء فاتورة مشتريات</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>فواتير المبيعات</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة فواتير المبيعات</a></li>
+                        <li><a href="#">إنشاء فاتورة مبيعات</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>عروض الاسعار</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة عروض الاسعار</a></li>
+                        <li><a href="#">إنشاء عرض سعر</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>المنتجات</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة المنتجات</a></li>
+                        <li><a href="#">إنشاء منتج</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>الطلبات</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة الطلبات المكتملة</a></li>
+                        <li><a href="#">قائمة الطلبات الغير مكتملة</a></li>
+                        <li><a href="#">إنشاء طلب</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>العملاء</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة العملاء</a></li>
+                        <li><a href="#">إنشاء عميل</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>الموردين</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة الموردين</a></li>
+                        <li><a href="#">إنشاء مورد</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>المستخدمين</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة المستخدمين</a></li>
+                        <li><a href="#">إنشاء مستخدم</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>الاعدادات</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">معلومات المنشأة</a></li>
+                        <li><a href="#">الفئات</a></li>
+                        <li><a href="#">الضرائب</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--End Mobile Navigation-->
+    <!--Start Wrapper-->
+    <div class="wrapper">
+        <!--Start Right Bar-->
+        <ul class="navbar-nav right-bar" id="rightBar">
+            <a href="#" class="brand-logo">
+                <img src="../img/Logo.svg" alt="Matjary-logo" title="matjary logo">
+            </a>
+            <div class="brand-content">
+                <a href="#" class="brand-link">
+                    <i class="fa fa-eye"></i>
+                    عرض صفحة المتجر
+                </a>
+            </div>
+            <li class="nav-item active">
+                <a href="#">
+                    <i class="fa fa-home fa-fw right-icon"></i>
+                    <span>الصفحة الرئيسية</span>
+                </a>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-file-invoice fa-fw right-icon"></i>
+                    <span>فواتير المشتريات</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة فواتير المشتريات</a></li>
+                    <li><a href="#">إنشاء فاتورة مشتريات</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-file-invoice-dollar fa-fw right-icon"></i>
+                    <span>فواتير المبيعات</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة فواتير المبيعات</a></li>
+                    <li><a href="#">إنشاء فاتورة مبيعات</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-layer-group fa-fw right-icon"></i>
+                    <span>عروض الاسعار</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة عروض الاسعار</a></li>
+                    <li><a href="#">إنشاء عرض سعر</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fab fa-product-hunt fa-fw right-icon"></i>
+                    <span>المنتجات</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة المنتجات</a></li>
+                    <li><a href="#">إنشاء منتج</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-shopping-bag fa-fw right-icon"></i>
+                    <span>الطلبات</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة الطلبات المكتملة</a></li>
+                    <li><a href="#">قائمة الطلبات الغير مكتملة</a></li>
+                    <li><a href="#">إنشاء طلب</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-users fa-fw right-icon"></i>
+                    <span>العملاء</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة العملاء</a></li>
+                    <li><a href="#">إنشاء عميل</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-user-friends fa-fw right-icon"></i>
+                    <span>الموردين</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة الموردين</a></li>
+                    <li><a href="#">إنشاء مورد</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-user-circle fa-fw right-icon"></i>
+                    <span>المستخدمين</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة المستخدمين</a></li>
+                    <li><a href="#">إنشاء مستخدم</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-cog fa-fw right-icon"></i>
+                    <span>الاعدادات</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">معلومات المنشأة</a></li>
+                    <li><a href="#">الفئات</a></li>
+                    <li><a href="#">الضرائب</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!--End Right Bar-->
+        <!--Start Content Wrapper-->
+        <div class="content-wrapper">
+            <!--Start Top Bar-->
+            <div class="top-bar">
+                <div class="right-content">
+                    <i class="fa fa-bars" onclick="showMobileNav()" id="displayMobileNav"></i>
+                    <h3>متجر المكلا للعطور</h3><!--Put The name of the Store Here!-->
+                </div>
+                <div class="left-content">
+                    <h6 id="userInfo" onclick="showUserLinks()">
+                        <i class="fa fa-user"></i>
+                        <span>Ibrahim BarBouD</span>
+                        <i class="fa fa-angle-down"></i>
+                    </h6>
+                    <div id="userLinks" class="shadow">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-user"></i>تعديل الملف الشخصي</a></li>
+                            <li><a href="#"><i class="fa fa-sign-out-alt"></i>تسجيل خروج</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--End Top Bar-->
+            <!--Start Page Content-->
+            <div class="page-content">
+                <div class="container-fluid">
+                    <div class="page-title">
+                        <i class="fa fa-file-invoice"></i>
+                        <h6>فواتير المشتريات</h6>
+                        <i class="fa fa-angle-left"></i>
+                        <h6>عرض الفاتورة</h6>
+                    </div>
+                    <div class="page-info shadow">
+                        <div class="title">
+                            <i class="fa fa-file-invoice"></i>
+                            <h6>عرض الفاتورة</h6>
+                        </div>
+                        <div class="content">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group row">
+                                            <span class="col-md-3 col-sm-12 col-form-label">اسم المورد :</span>
+                                            <span class="col-md-9 col-sm-12 col-form-label">ابراهيم محمد</span><!--Put Server Variable Here-->
+                                        </div>
+                                        <div class="form-group row">
+                                            <span class="col-sm-12 col-form-label">ملاحظات :</span>
+                                            <span class="col-sm-12 col-form-label" style="max-width: fit-content;">لايوجد ملاحظات</span><!--Put Server Variable Here-->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group row">
+                                            <span class="col-md-3 col-sm-12 col-form-label">تاريخ الفاتورة :</span>
+                                            <span class="col-md-9 col-sm-12 col-form-label">2021/7/27</span><!--Put Server Variable Here-->
+                                        </div>
+                                        <div class="form-group row">
+                                            <span class="col-md-3 col-sm-12 col-form-label">الضريبة :</span>
+                                            <span class="col-md-9 col-sm-12 col-form-label">ضريبية</span><!--Put Server Variable Here-->
+                                        </div>
+                                        <div class="form-group row" id="vatSelect">
+                                            <span class="col-md-3 col-sm-12 col-form-label">الضريبة :</span>
+                                            <span class="col-md-9 col-sm-12 col-form-label">15%</span><!--Put Server Variable Here-->
+                                        </div>
+                                        <div class="form-group row">
+                                            <span class="col-md-3 col-sm-12 col-form-label">النوع :</span>
+                                            <span class="col-md-9 col-sm-12 col-form-label">نقدية</span><!--Put Server Variable Here-->
+                                        </div>
+                                        <div class="form-group row">
+                                            <span class="col-md-4 col-sm-12 col-form-label">المبلغ المدفوع :</span>
+                                            <span class="col-md-8 col-sm-12 col-form-label">1500SR</span><!--Put Server Variable Here-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group row">
+                                            <label class="col-sm-12 col-form-label">المنتجات المضافة :</label>
+                                            <div class="col-sm-12">
+                                                <div class="table-info">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>المنتج</th>
+                                                                <th>التكلفة</th>
+                                                                <th>سعر البيع</th>
+                                                                <th>الخصم</th>
+                                                                <th>الكمية</th>
+                                                                <th>الاجمالي</th>
+                                                                <th>الاجمالي مع الضريبة</th>
+                                                                <th>ملاحظات</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="table-body">
+                                                            <tr id="firstRow">
+                                                                <td>
+                                                                    1
+                                                                </td>
+                                                                <td>
+                                                                    ساعة
+                                                                </td>
+                                                                <td>
+                                                                    100
+                                                                </td>
+                                                                <td>
+                                                                    200
+                                                                </td>
+                                                                <td>
+                                                                    0
+                                                                </td>
+                                                                <td>
+                                                                    1
+                                                                </td>
+                                                                <td class="total">200</td>
+                                                                <td class="total-vat">250</td>
+                                                                <td>
+                                                                    لايوجد
+                                                                </td>
+                                                            </tr>
+                                                            <tr id="firstRow">
+                                                                <td>
+                                                                    1
+                                                                </td>
+                                                                <td>
+                                                                    ساعة
+                                                                </td>
+                                                                <td>
+                                                                    100
+                                                                </td>
+                                                                <td>
+                                                                    200
+                                                                </td>
+                                                                <td>
+                                                                    0
+                                                                </td>
+                                                                <td>
+                                                                    1
+                                                                </td>
+                                                                <td class="total">200</td>
+                                                                <td class="total-vat">250</td>
+                                                                <td>
+                                                                    لايوجد
+                                                                </td>
+                                                            </tr>
+                                                            <tr id="firstRow">
+                                                                <td>
+                                                                    1
+                                                                </td>
+                                                                <td>
+                                                                    ساعة
+                                                                </td>
+                                                                <td>
+                                                                    100
+                                                                </td>
+                                                                <td>
+                                                                    200
+                                                                </td>
+                                                                <td>
+                                                                    0
+                                                                </td>
+                                                                <td>
+                                                                    1
+                                                                </td>
+                                                                <td class="total">200</td>
+                                                                <td class="total-vat">250</td>
+                                                                <td>
+                                                                    لايوجد
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Start Invoice info-->
+                                <div class="invoice-info">
+                                    <i class="fa fa-edit fa-fw"></i>
+                                    <h5>اجمالي الفاتورة</h5>
+                                    <hr class="mb-2">
+                                    <div class="d-block">
+                                        <h6>الاجمالي :</h6>
+                                        <p id="total">0</p><span> ر.س</span><!--Put Server Variable Here-->
+                                    </div>
+                                    <div class="d-block">
+                                        <h6>الاجمالي مع الضريبة :</h6>
+                                        <p id="total-vat">0</p><span> ر.س</span><!--Put Server Variable Here-->
+                                    </div>
+                                    <div class="d-block">
+                                        <h6>اجمالي الخصم :</h6>
+                                        <p id="total-discount">0</p><span> ر.س</span><!--Put Server Variable Here-->
+                                    </div>
+                                    <div class="d-block">
+                                        <h6>المدفوع :</h6>
+                                        <p id="payment">0</p><span> ر.س</span><!--Put Server Variable Here-->
+                                    </div>
+                                    <!--Display this form with specific condition-->
+                                    <div class="d-block" style="margin-bottom: 5px;">
+                                        <form action="" method="post" onsubmit="return ValidatePaid()">
+                                            <label for="paid">إضافة دفعة :</label>
+                                            <input type="text" class="form-control" name="paid" id="paid">
+                                            <button type="submit" class="btn add-button">اضف</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!--End Invoice info-->
+                                <!--Start Payment -->
+                                <div class="invoice-info">
+                                    <i class="fa fa-edit fa-fw"></i><h6>الدفعات</h6>
+                                    <hr class="mb-2">
+                                    <div class="info-box" style="margin-bottom: 0;">
+                                        <div class="info-row" style="margin-bottom: 5px;">
+                                            <h6>الدفعة 1:</h6>
+                                            <span>1000 ر.س</span>
+                                            <a href="" onclick="return confirm('هل تريد الحذف ؟')" class="float-right"><i class="fa fa-trash fa-fw op"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--End Payment-->
+                                <div style="clear: both;"></div>
+                                <div class="btn-operation">
+                                    <a href="#" class="btn"><i class="fa fa-edit"></i>تعديل الفاتورة</a>
+                                    <a href="#" class="delete-btn btn" onclick="return confirm('هل انت متأكد')"><i class="fa fa-edit"></i>حذف الفاتورة</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Page Content-->
+        </div>
+        <!--End Content Wrapper-->
+    </div>
+    <!--End Wrapper-->
+    <script src="../js/jquery-3.4.1.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        /*
+        var total_invoice = parseFloat({{$invoice->total_vat}});
+        var payment_amount = parseFloat({{$invoice->payment_amount}});
+        var z = parseFloat(total_invoice-payment_amount);
+        console.log(z);
+        function ValidatePaid()
+        {
+            var paid_input = parseFloat(document.getElementById("paid").value);
+            if(paid_input > z)
+            {
+                document.getElementById("payment-error").innerHTML = "المبلغ المدخل اكبر من قيمة الفاتورة";
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        */
+    </script>
+</body>
+</html>

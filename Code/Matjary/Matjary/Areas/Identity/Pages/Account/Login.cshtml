@@ -1,0 +1,54 @@
+﻿@page
+@model LoginModel
+
+@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Hassan Ali">
+    <title>تسجيل الدخول</title>
+    <!--CSS file-->
+    <link href="~/store/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/store/css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/store/css/all.min.css" rel="stylesheet" />
+    <link href="~/store/css/main.css" rel="stylesheet" />
+    <!--Google font-->
+    <link rel="stylesheet" href="~/store/css/Tajawalfont.css">
+</head>
+<body>
+    <!--Start Wrapper-->
+    <div class="wrapper">
+        <div class="content-of-login">
+            <p>مرحبا بعودتك</p>
+            <p>تسجيل الدخول الى حسابك</p>
+            <p>ليس لديك حساب؟ <a asp-page="./Register">اشتراك</a></p>
+            <form class="form form-of-login" id="account" method="post" asp-route-returnUrl="@Url.Action("HomePage", "Store", new { area = "" })">
+                <div class="fild">
+                    <label class="first-label" style="margin: 0 auto;">الايميل :</label>
+                    <input class="form-control" type="email" asp-for="Input.Email">
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="fild">
+                    <label class="second-label">ادخل كلمة المرور :</label>
+                    <input class="form-control second-input" type="password" asp-for="Input.Password">
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <input type="submit" class="submit" value="دخول">
+            </form>
+        </div>
+    </div>
+    <!--End Wrapper-->
+    <script src="~/store/js/jquery-3.4.1.min.js"></script>
+    <script src="~/store/js/popper.min.js"></script>
+    <script src="~/store/js/bootstrap.min.js"></script>
+    <script src="~/store/js/main.js"></script>
+    <script>
+        <partial name="_ValidationScriptsPartial" />
+    </script>
+</body>
+</html>

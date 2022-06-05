@@ -1,0 +1,82 @@
+﻿@model IList<Matjary.Models.OrderProduct>
+@using Microsoft.AspNetCore.Http;
+@using Matjary.Controllers.handle_session_objects;
+@{
+    ViewData["Title"] = "ShoppingCart";
+
+    double totalAll = 0.0;
+    double alldiscount = 0.0;
+
+    double totalAllRate = 0.0;
+    List<OrderProduct> po = Context.Session.GetComplexData<List<OrderProduct>>("ordersp");
+    string imge = Context.Session.GetString("photoName");
+
+    if (po == null) { po = new List<OrderProduct>(); }
+    foreach (var item in po)
+    {
+        totalAll += item.Total;
+        totalAllRate += item.Total_Vat;
+        alldiscount += item.Discount;
+    }
+    if (imge == null) { imge = ""; };
+}
+
+
+
+<div class="d-flex flex-column align-items-md-center">
+    <div class="shoppingcartDetailes">
+        <div class="font-weight-bold">الاجمالي: <span class="font-weight-light">@totalAll</span></div>
+        <div class="font-weight-bold">اجمالي قيمة الخصم:<span class="font-weight-light">@alldiscount</span></div>
+        <div class="font-weight-bold">الاجمالي مع الخصم: <span class="font-weight-light">@(totalAll-alldiscount)</span></div>
+        <div class="font-weight-bold">القيمة المضافة : <span class="font-weight-light">@(totalAllRate-totalAll)</span></div>
+        <div class="font-weight-bold">الاجمالي النهائي مع القيمة المضافة : <span class="font-weight-light">@(totalAllRate-alldiscount)</span></div>
+
+    </div>
+    <hr />
+    <form style="padding:30px;border:1px dashed black" class="text-center" asp-action="ShoppingCartAddPaymentPhoto" enctype="multipart/form-data">
+        <h4 class="font-weight-bold " style="margin-bottom:13px;text-decoration:underline">ارفق سند التحويل</h4>
+
+        <div class="">
+            <div class="CustomFileWrp">
+                <div class="customFile">
+                    <label for="PhotoUpload">استعراض</label>
+                    <input id="PhotoUpload" name="photo" accept="image/png, .jpeg, .jpg" required type="file" class="form-control-file border">
+                </div>
+                <div class="fileName">
+                    Ex:sanad.jpg
+                </div>
+            </div>
+            <br>
+            <div><input id="NextButtonInShoppingCart" type="submit" value="رفع"></div>
+            <br />
+            <br />
+
+            @if (imge == "") { }
+            else
+            {
+                <div style="text-align:center"><img id="im" src="~/Dashboard/img/sanad/@imge" width="600" height="auto" alt=""></div>
+            }
+            <br />
+        </div>
+    </form>
+
+</div>
+@if (imge != "")
+{<div style="text-align:center;cursor:pointer"> <a asp-action="Address"><input id="NextButtonInShoppingCart" type="submit" value="التالي"></a></div> }
+else
+{<div style="text-align:center"> <input disabled style="color:#00000033 ;background-color:#a9a9a947;cursor:not-allowed" id="NextButtonInShoppingCart" type="button" value="التالي"></div>}
+
+@section fileupload{
+    <script>
+        $(function () {
+
+            $("#PhotoUpload").change(function (event) {
+
+                var x = event.target.files[0].name;
+                $(".fileName").text(x);
+
+            });
+        })
+    </script>
+
+}

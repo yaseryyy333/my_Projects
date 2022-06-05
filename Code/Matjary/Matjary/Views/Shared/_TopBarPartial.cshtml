@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<div class="top-bar">
+    <div class="right-content">
+        <i class="fa fa-bars" onclick="showMobileNav()"></i>
+        <h3>متجر المكلا للعطور</h3><!--Put The name of the Store Here!-->
+    </div>
+    <div class="left-content">
+        <h6 id="userInfo" onclick="showUserLinks()">
+            <i class="fa fa-user"></i>
+            <span>@User.Identity.Name</span><!--Put The name of the authenticated user Here!-->
+            <i class="fa fa-angle-down"></i>
+        </h6>
+        <div id="userLinks" class="shadow">
+            <ul>
+                <li><a asp-controller="Dashboard" asp-action="EditUser"><i class="fa fa-user"></i>تعديل الملف الشخصي</a></li>
+                <li>
+                    <a asp-area="Identity" asp-page="/Account/Logout" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"><i class="fa fa-sign-out-alt"></i>تسجيل خروج</a>
+                    <form id="logout-form" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("HomePage", "Store", new { area = "" })">
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

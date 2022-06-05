@@ -1,0 +1,17 @@
+﻿
+
+
+    <form id="searchform"class="search" method="get" asp-action="ResultSearch">
+
+        <select class="filter-search " name="id" asp-items="ViewBag.catrgory">
+        </select>
+
+        <input name="search" type="text" placeholder="ابحث في المتجر" class="form-control search">
+
+        <button style=" padding: 0;border: none; " type="submit"> <i class="fa fa-search"></i></button> 
+    </form>
+
+@section fileupload{
+
+    <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+}

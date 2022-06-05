@@ -1,0 +1,267 @@
+﻿@model Matjary.Models.Invoices
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+}
+
+
+<!--Start Page Content-->
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title">
+            <i class="fa fa-file-invoice"></i>
+            <h6>فواتير المشتريات</h6>
+            <i class="fa fa-angle-left"></i>
+            <h6>عرض الفاتورة</h6>
+        </div>
+        <div class="page-info shadow">
+            <div class="title">
+                <i class="fa fa-file-invoice"></i>
+                <h6>عرض الفاتورة</h6>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">اسم المورد :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">@Model.Person.Name</span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-sm-12 col-form-label">ملاحظات :</span>
+                            <span class="col-sm-12 col-form-label" style="max-width: fit-content;">@Model.Note</span><!--Put Server Variable Here-->
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">تاريخ الفاتورة :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">@Model.Date.Date</span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">الضريبة :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">@if (Model.Vat_Rate > 0)
+                            {
+                                @:ضريبية
+                            }
+                            else { 
+                                @:غير ضريبية
+                            }</span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row" id="vatSelect">
+                            <span class="col-md-3 col-sm-12 col-form-label">الضريبة :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">@Model.Vat_Rate</span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">النوع :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">@Model.Type</span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-md-4 col-sm-12 col-form-label">المبلغ المدفوع :</span>
+                            <span class="col-md-8 col-sm-12 col-form-label">@Model.Payments</span><!--Put Server Variable Here-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <label class="col-sm-12 col-form-label">المنتجات المضافة :</label>
+                            <div class="col-sm-12">
+                                <div class="table-info">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>المنتج</th>
+                                                <th>التكلفة</th>
+                                                <th>سعر البيع</th>
+                                                <th>الخصم</th>
+                                                <th>الكمية</th>
+                                                <th>الاجمالي</th>
+                                                <th>الاجمالي مع الضريبة</th>
+                                                <th>ملاحظات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table-body">
+                                            @foreach (var item in ViewData["InvoicesProducts"] as List<InvoicesProducts>)
+                                            {
+                                                <tr id="firstRow">
+                                                    <td>
+                                                        1
+                                                    </td>
+                                                    <td>
+                                                        @item.Product.Name
+                                                    </td>
+                                                    <td>
+                                                        @item.Cost
+                                                    </td>
+                                                    <td>
+                                                        @item.SellPrice
+                                                    </td>
+                                                    <td>
+                                                        @item.Discount
+                                                    </td>
+                                                    <td>
+                                                        @item.Qty
+                                                    </td>
+                                                    <td class="total">@item.Total</td>
+                                                    <td class="total-vat">@item.Total_Vat</td>
+                                                    <td>
+                                                        @item.Note
+                                                    </td>
+                                                </tr>
+                                            }
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Start Invoice info-->
+                <div class="invoice-info">
+                    <i class="fa fa-edit fa-fw"></i>
+                    <h5>اجمالي الفاتورة</h5>
+                    <hr class="mb-2">
+                    <div class="d-block">
+                        <h6>الاجمالي :</h6>           
+                        <p id="total">@ViewData["Total"]</p><span> ر.س</span><!--Put Server Variable Here-->
+                    </div>
+                    <div class="d-block">
+                        <h6>الاجمالي مع الضريبة :</h6>
+                        <p id="total-vat">@ViewData["Total_Vat"]</p><span> ر.س</span><!--Put Server Variable Here-->
+                    </div>
+                    <div class="d-block">
+                        <h6>اجمالي الخصم :</h6>
+                        <p id="total-discount">@ViewData["Discount"]</p><span> ر.س</span><!--Put Server Variable Here-->
+                    </div>
+                    <div class="d-block">
+                        <h6>المدفوع :</h6>
+                        <p id="payment">@Model.Payments</p><span> ر.س</span><!--Put Server Variable Here-->
+                    </div>
+                    <!--Display this form with specific condition-->
+                    <div class="d-block" style="margin-bottom: 5px;">
+                        <form action="" method="post" onsubmit="return ValidatePaid()">
+                            <label for="paid">إضافة دفعة :</label>
+                            <input type="text" class="form-control" name="paid" id="paid">
+                            <button type="submit" class="btn add-button">اضف</button>
+                        </form>
+                    </div>
+                </div>
+                <!--End Invoice info-->
+                <!--Start Payment -->
+                <div class="invoice-info">
+                    <i class="fa fa-edit fa-fw"></i><h6>الدفعات</h6>
+                    <hr class="mb-2">
+                    <div class="info-box" style="margin-bottom: 0;">
+                        <div class="info-row" style="margin-bottom: 5px;">
+                            @{ 
+                                var x = 0;
+                            }
+                            @foreach (var item in ViewData["Payments"] as List<Payment>)
+                            {
+                                x++;
+                                <h6>الدفعة @x : </h6>
+                                <span>@item.Value ر.س</span>
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+                <!--End Payment-->
+                <div style="clear: both;"></div>
+                <div class="btn-operation">
+                    <a href="#" class="btn"><i class="fa fa-edit"></i>تعديل الفاتورة</a>
+                    <a href="#" class="delete-btn btn" onclick="return confirm('هل انت متأكد')"><i class="fa fa-edit"></i>حذف الفاتورة</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page Content-->
+@*<h1>Details</h1>
+
+    <div>
+        <h4>Invoices</h4>
+        <hr />
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Type)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Type)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Invoice_Type)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Invoice_Type)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Vat_Rate)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Vat_Rate)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.TotalDiscount)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.TotalDiscount)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.TotalCost)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.TotalCost)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.TotalVat)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.TotalVat)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Total)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Total)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Payments)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Payments)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Note)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Note)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Person)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Person.Address)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.ApplicationUser)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ApplicationUser.Id)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>*@

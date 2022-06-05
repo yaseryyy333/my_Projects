@@ -1,0 +1,174 @@
+﻿
+
+@using Matjary.Controllers.handle_session_objects;
+@{
+    List<Products> SessionInlyout = Context.Session.GetComplexData<List<Products>>("Products");
+    int c;
+    @if (SessionInlyout == null) { c = 0; } else { c = SessionInlyout.Count(); }
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="khalid abdulman'a">
+    <title>@ViewData["Title"] - MatjaryStore</title>
+
+    <!--CSS file-->
+    <link href="~/store/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/store/css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/store/css/all.min.css" rel="stylesheet" />
+    <link href="~/store/css/main.css" rel="stylesheet" />
+    <!--Google font-->
+    <link rel="stylesheet" href="~/store/css/Tajawalfont.css">
+</head>
+
+<body>
+    <div id="loader" class="lds-dual-ring hidden overlay1"></div>
+    <!--Start TopBar-->
+    <nav class=" topbar">
+
+        <!-- logo or name of store -->
+        <div class="r-content">
+            <a class="logo" href="@Url.Action("HomePage","Store")"></a>
+
+            @Html.Partial("Search")
+        </div>
+        <div class="left-content">
+            <div class="login">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a href="#">
+                        <i class="fa fa-user"></i>
+                        <h4 class="">@User.Identity.Name</h4>
+                    </a>
+                    <div class="login-options">
+                        @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+                        {
+                            <a asp-controller="Dashboard" asp-action="Index" target="_blank">
+                                <i class="fa fa-cogs"></i>
+                                <span> لوحة التحكم</span>
+                            </a>
+                            <hr>
+                        }
+                        @if (User.IsInRole("Customer"))
+                        {
+                            <a asp-controller="Store" asp-action="UserInfo">
+                                <i class="fa fa-user"></i>
+                                <span>تعديل المعلومات</span>
+                            </a>
+                            <hr>
+                        }
+                        <a asp-area="Identity" asp-page="/Account/Logout" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            <i class="fa fa-sign-out-alt"></i>
+                            <span>
+                                تسجيل خروج
+                            </span>
+                        </a>
+                        <form id="logout-form" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("HomePage", "Store", new { area = "" })">
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <a href="#">
+                        <i class="fa fa-user"></i>
+                        <h4 class="">تسجيل الدخول</h4>
+                    </a>
+                    <div class="login-options">
+                        <a href="Identity/Account/Login">
+                            <i class="fa fa-user"></i>
+                            <span> تسجيل الدخول</span>
+                        </a>
+                        <hr>
+                        <a href="Identity/Account/Register">
+                            <i class="fa fa-user-plus "></i>
+                            <span>
+                                التسجيل
+                            </span>
+                        </a>
+                    </div>
+                }
+            </div>
+
+            <div class="cart">
+                <a>
+                    <span id="counter">
+                        @c
+                    </span>
+                    <i class="fa fa-cart-plus"></i>
+                    <h4>سلة التسوق</h4>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <div class="cart-options">
+
+                    <a asp-action="ShoppingCart">
+                        <i class="fa fa-cart-plus"></i>
+                        <span> السلة</span>
+                    </a>
+                    <hr>
+                    <a asp-action="ListMyOrders">
+                        <i class="fa fa-clipboard  "></i>
+                        <span>
+                            طلباتي
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--End TopBar-->
+
+    @RenderBody()
+
+
+    <!-- start footer -->
+    <div class="footer">
+        <div class="my-acount col col-12 col-sm-6 col-md-3">
+            <h5>حسابي</h5>
+            <ul>
+                <li><a href="@Url.Action("HomePage","Store")">دخول/تسجيل</a></li>
+                <li><a href="@Url.Action("ShoppingCart","Store")">سلة التسوق</a></li>
+                <li><a href="@Url.Action("ListMyOrders","Store")">طلباتي</a></li>
+                <li><a href="@Url.Action("MyAddress","Store")">عناويني</a></li>
+                <li><a href="@Url.Action("UserInfo","Store")">إعدادات الحساب</a></li>
+            </ul>
+        </div>
+        <div class="how-are-we col col-12 col-sm-6 col-md-3">
+            <h5>من نحن</h5>
+            <ul>
+                <li><a href="@Url.Action("About","Store")">عن متجري</a></li>
+                <li><a href="@Url.Action("About","Store")">مبرمجي الموقع</a></li>
+            </ul>
+        </div>
+        <div class="contact-us col col-12 col-sm-6 col-md-3">
+            <h5>تواصل معنى</h5>
+            <ul>
+                <li>عبر الاتصال على الرقم المجاني<br />777777777</li>
+                <li>عبر البريد الاكتروني<br />Matjary@info.com</li>
+            </ul>
+        </div>
+        <div class="social-media col col-12 col-sm-6 col-md-3">
+            <h5>تابعنا على</h5>
+            <ul>
+                <li><a href="#"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a href="#"><i class="fab fa-youtube-square fa-2x"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- End footer -->
+
+    <script src="~/store/js/jquery-3.4.1.min.js"></script>
+    <script src="~/store/js/popper.min.js"></script>
+    <script src="~/store/js/bootstrap.min.js"></script>
+    <script src="~/store/js/main.js"></script>
+    @RenderSection("fileupload", false)
+</body>
+
+</html>

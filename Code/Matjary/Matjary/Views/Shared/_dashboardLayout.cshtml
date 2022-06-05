@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Ibrahim BarBouD">
+    <title>@ViewData["title"]</title>
+    <!--CSS file-->
+    <link href="~/Dashboard/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Dashboard/css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/Dashboard/css/all.min.css" rel="stylesheet" />
+    <link href="~/Dashboard/css/main.css" rel="stylesheet" />
+    <!--Google font-->
+    <link rel="stylesheet" href="~/Dashboard/css/Tajawalfont.css">
+</head>
+<body>
+
+    <!--Start Mobile Navigation-->
+    @Html.Partial("_MobileNavPartial")
+    <!--End Mobile Navigation-->
+
+    <!--Start Wrapper-->
+    <div class="wrapper">
+
+        <!--Start Right Bar-->
+        @Html.Partial("_RightBarPartial")
+        <!--End Right Bar-->
+
+        <!--Start Content Wrapper-->
+        <div class="content-wrapper">
+            <!--Start Top Bar-->
+            @Html.Partial("_TopBarPartial")
+            <!--End Top Bar-->
+
+            @RenderBody()
+
+        </div>
+        <!--End Content Wrapper-->
+    </div>
+    <!--End Wrapper-->
+    <script src="~/Dashboard/js/jquery-3.4.1.min.js"></script>
+    <script src="~/Dashboard/js/popper.min.js"></script>
+    <script src="~/Dashboard/js/bootstrap.min.js"></script>
+    <script src="~/Dashboard/js/main.js"></script>
+    @RenderSection("scripts",false)
+</body>
+</html>

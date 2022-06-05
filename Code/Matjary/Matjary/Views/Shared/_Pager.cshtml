@@ -1,0 +1,54 @@
+﻿@using PagedList.Core.Mvc
+
+    <div class="pager">
+        <ul class="pagination">
+
+            
+            @{
+
+                if (@Model.PageNumber == 1)
+                {
+                    for (int p = Model.PageCount; p >= 1; p--)
+                    {
+                        if (p == Model.PageCount && Model.PageCount != Model.PageNumber)
+                        {
+                            <li class="page-item"><a class="page-link" asp-route-page="@((@Model.PageNumber>=@Model.PageCount)?@Model.PageCount:@Model.PageNumber+1)" asp-action="@ViewData["currentpage"]">Next</a></li>
+                        }
+                        <li class="page-item"><a class="page-link" asp-route-page="@p" asp-action="@ViewData["currentpage"]">@p</a></li>
+                    }
+                }
+                else if (@Model.PageNumber == Model.PageCount)
+                {
+                    for (int p = Model.PageCount; p >= 1; p--)
+                    {
+                        <li class="page-item"><a class="page-link" asp-route-page="@p" asp-action="@ViewData["currentpage"]">@p</a></li>
+                        if (p == 1)
+                        {
+                            <li class="page-item"><a class="page-link" asp-route-page=" @((@Model.PageNumber <= 1) ? 1 : (@Model.PageNumber - 1 )) " asp-action="@ViewData["currentpage"]">Previous</a></li>
+                        }
+                    }
+                }
+                else
+                {
+                    for (int p = Model.PageCount; p >= 1; p--)
+                    {
+                        if (p == Model.PageCount)
+                        {
+                            <li class="page-item"><a class="page-link" asp-route-page="@((@Model.PageNumber>=@Model.PageCount)?@Model.PageCount:@Model.PageNumber+1)" asp-action="@ViewData["currentpage"]">Next</a></li>
+                            <li class="page-item"><a class="page-link" asp-route-page="@p" asp-action="@ViewData["currentpage"]">@p</a></li>
+                        }
+
+                        else if (p == 1)
+                        {
+                            <li class="page-item"><a class="page-link" asp-route-page="@p" asp-action="@ViewData["currentpage"]">@p</a></li>
+                            <li class="page-item"><a class="page-link" asp-route-page=" @((@Model.PageNumber <= 1) ? 1 : (@Model.PageNumber - 1 )) " asp-action="@ViewData["currentpage"]">Previous</a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link" asp-route-page="@p" asp-action="@ViewData["currentpage"]">@p</a></li>
+                        }
+                    }
+                }
+            }
+        </ul>
+   </div>

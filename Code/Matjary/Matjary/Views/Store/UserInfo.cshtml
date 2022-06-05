@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "UserInfo";
+}
+
+<!-- Start Content -->
+<div class="user-settings">
+    <ul>
+        <a href="~/Store/UserInfo">
+            <li class="active">
+                <i class="fa fa-user"></i>
+                <span>حسابي</span>
+            </li>
+        </a>
+        <a href="~/Store/EditUser">
+            <li>
+                <i class="fa fa-user-edit"></i>
+                <span>تعديل الحساب</span>
+            </li>
+        </a>
+        <a href="~/Store/ListMyOrders">
+            <li>
+                <i class="fa fa-clipboard-list"></i>
+                <span>طلباتي</span>
+            </li>
+        </a>
+        <a href="~/Store/MyAddress">
+            <li>
+                <i class="fa fa-address-card"></i>
+                <span>عناويني</span>
+            </li>
+        </a>
+        <a href="~/Store/ShoppingCart">
+            <li>
+                <i class="fa fa-shopping-bag"></i>
+                <span>سلة التسوق</span>
+            </li>
+        </a>
+    </ul>
+    <div class="display-info">
+        <div>
+            <i class="fa fa-user"></i>
+            <span>حسابي</span>
+        </div>
+        <div>
+            <i class="fa fa-info-circle"></i>
+            <span>
+                معلومات الحساب
+            </span>
+        </div>
+        <section>
+            <div>
+                <h6>الأسم:</h6>
+              
+                <span>@ViewBag.us.Name</span>
+            </div>
+            <div>
+                <h6>البريد الالكتروني:</h6>
+                <span>@ViewBag.us.Email</span>
+            </div>
+            <div>
+                <h6>رقم الهاتف:</h6>
+                <span>@ViewBag.us.PhoneNumber</span>
+            </div>
+
+           
+
+
+            <a href="@Url.Action("EditUser","Store")" >
+                <i class="fa fa-edit"></i>
+                <span>تعديل</span>
+                </a>
+         
+        </section>
+    </div>
+</div>
+<!-- End Contenet -->

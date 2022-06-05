@@ -1,0 +1,230 @@
+﻿@model Matjary.Models.Quotations
+
+@{
+    ViewData["Title"] = "Details";
+    ViewData["currentpage"] = "Index";
+    Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+}
+
+<!--Start Page Content-->
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title">
+            <i class="fa fa-layer-group"></i>
+            <h6>عروض الاسعار</h6>
+            <i class="fa fa-angle-left"></i>
+            <h6>عرض عرض السعر</h6>
+        </div>
+        <div class="page-info shadow">
+            <div class="title">
+                <i class="fa fa-layer-group"></i>
+                <h6>عرض عرض السعر</h6>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">اسم العميل :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">@Model.Person.Name</span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-sm-12 col-form-label">ملاحظات :</span>
+                            <span class="col-sm-12 col-form-label" style="max-width: fit-content;">@Model.Note</span><!--Put Server Variable Here-->
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group row">
+                            <span class="col-md-6 col-sm-12 col-form-label">تاريخ عرض السعر :</span>
+                            <span class="col-md-6 col-sm-12 col-form-label">@Model.Date</span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">الضريبة :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">
+                            @if(Model.VatRate>0)
+                            {
+                                @:ضريبية
+                            }
+                            else
+                            {
+                                @:غير ضريبية
+                            }
+                            </span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">الضريبة :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">@Model.VatRate%</span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-md-4 col-sm-12 col-form-label">المدة :</span>
+                            <span class="col-md-8 col-sm-12 col-form-label">@Model.Duration ايام</span><!--Put Server Variable Here-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <label class="col-sm-12 col-form-label">المنتجات المضافة :</label>
+                            <div class="col-sm-12">
+                                <div class="table-info">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>المنتج</th>
+                                                <th>التكلفة</th>
+                                                <th>سعر البيع</th>
+                                                <th>الخصم</th>
+                                                <th>الكمية</th>
+                                                <th>الاجمالي</th>
+                                                <th>الاجمالي مع الضريبة</th>
+                                                <th>ملاحظات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table-body">
+
+                                          
+                                            @foreach (var item in ViewData["QuotationsProducts"] as List<QuotationsProducts>)
+                                            {
+                                                <tr id="firstRow">
+                                                    <td>
+                                                        1
+                                                    </td>
+                                                    <td>
+                                                        @item.Product.Name
+                                                    </td>
+                                                    <td>
+                                                        @item.Cost
+                                                    </td>
+                                                    <td>
+                                                        @item.SellPrice
+                                                    </td>
+                                                    <td>
+                                                        @item.Discount
+                                                    </td>
+                                                    <td>
+                                                        @item.Qty
+                                                    </td>
+                                                    <td class="total">@item.Total</td>
+                                                    <td class="total-vat">@item.Total_Vat</td>
+                                                    <td>
+                                                        @item.Note
+                                                    </td>
+                                                </tr>
+
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Start Invoice info-->
+                <div class="invoice-info">
+                    <i class="fa fa-edit fa-fw"></i>
+                    <h5>اجمالي عرض السعر</h5>
+                    <hr class="mb-2">
+                    <div class="d-block">
+                        <h6>الاجمالي :</h6>
+                        <p id="total">@ViewData["Total"]</p><span> ر.س</span><!--Put Server Variable Here-->
+                    </div>
+                    <div class="d-block">
+                        <h6>الاجمالي مع الضريبة :</h6>
+                        <p id="total-vat">@ViewData["Total_Vat"]</p><span> ر.س</span><!--Put Server Variable Here-->
+                    </div>
+                    <div class="d-block">
+                        <h6>اجمالي الخصم :</h6>
+                        <p id="total-discount">@ViewData["Discount"]</p><span> ر.س</span><!--Put Server Variable Here-->
+                    </div>
+                </div>
+                <!--End Invoice info-->
+                <div style="clear: both;"></div>
+                <div class="btn-operation">
+                    <a href="#" class="btn"><i class="fa fa-print"></i>طباعة عرض السعر</a>
+                    <a href="#" class="btn"><i class="fa fa-edit"></i>تعديل عرض السعر</a>
+                    <a href="#" class="delete-btn btn" onclick="return confirm('هل انت متأكد')"><i class="fa fa-edit"></i>حذف عرض السعر</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page Content-->
+@*<h1>Details</h1>
+
+    <div>
+        <h4>Quotations</h4>
+        <hr />
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.VatRate)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.VatRate)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.TotalDiscount)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.TotalDiscount)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.TotalCost)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.TotalCost)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.TotalVat)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.TotalVat)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Total)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Total)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Duration)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Duration)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Note)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Note)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Person)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Person.Address)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.ApplicationUser)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ApplicationUser.Id)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>*@

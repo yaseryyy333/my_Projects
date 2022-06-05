@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Matjary.Models.Persons>
+
+@{
+    ViewData["Title"] = "قائمة الموردين";
+    Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+    ViewData["currentpage"] = "Index";
+}
+
+
+
+<!--Start Page Content-->
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title">
+            <i class="fa fa-user-friends"></i>
+            <h6>الموردين</h6>
+            <i class="fa fa-angle-left"></i>
+            <h6>قائمة الموردين</h6>
+        </div>
+        <div class="page-info shadow">
+            <div class="title">
+                <i class="fa fa-user-friends"></i>
+                <h6>قائمة الموردين</h6>
+            </div>
+            <div class="content">
+                <div class="before-table">
+                    <div class="add-button">
+                        <a class="btn" asp-action="Create">
+                            <i class="fa fa-plus"></i>
+                            اضف مورد جديد
+                        </a>
+                    </div>
+                    <div class="search-form">
+                        <form asp-action="Index">
+                            <!--Add Form Details Here-->
+                            <select id="type" class="custom-select mr-sm-2" name="searchType">
+                                <option value="null" selected="">بحث بحسب</option>
+                                <option value="UserName">اسم المورد</option>
+                                <option value="Telephone">رقم الهاتف</option>
+                                <option value="PhoneNumber">رقم الجوال</option>
+                                <option value="Email">البريد الإلكتروني</option>
+                            </select>
+                            <input type="text" id="Name" class="form-control" name="searchValue">
+                            <input id="button" type="submit" class="btn ml-sm-2" value="بحث">
+                        </form>
+                    </div>
+                </div>
+                <div class="table-info">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>اسم المورد</th>
+                                <th>رقم الهاتف</th>
+                                <th>رقم الجوال</th>
+                                <th>البريد الالكتروني</th>
+                                <th>عمليات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Telephone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Mobile)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-eye fa-fw op"></i></a>
+                                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit fa-fw op"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                    </td>
+                                </tr>
+                            }
+
+                            </tbody>
+                    </table>
+                </div>
+                <div class="pagin">
+                    <!--Put Pagination ASP CORE Here-->
+                    <partial name="_Pager" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page Content-->

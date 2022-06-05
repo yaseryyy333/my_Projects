@@ -1,0 +1,55 @@
+﻿@model PagedList.Core.PagedList<OrderProduct>
+@{
+    ViewData["Title"] = "Orders";
+    ViewData["currentpage"] = "Orders";
+}
+
+<!-- Start Content -->
+<div class=" top-path">
+    <span>الحساب الشخصي</span>
+    <i class="fa fa-angle-left"></i>
+    <span>سلة التسوق</span>
+</div>
+<div class="cart-info">
+    <i class="fa fa-cart-plus"></i>
+    <span> سلة التسوق</span>
+</div>
+<div class="list-of-cart">
+    <table class="table">
+        <thead>
+            <tr>
+
+
+                <th scope="col">العنصر</th>
+                <th scope="col">سعر الحبة</th>
+                <th scope="col">الكمية</th>
+                <th scope="col">الاجمالي</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var orderProduct in Model)
+            {
+
+                string photoName = orderProduct.Product.ProductPhoto.FirstOrDefault().Photo;
+                <tr>
+                    <td>
+                        <img />
+                        <img src="~/Dashboard/img/products/@photoName" alt="صورة المنتج" width="50" height="50">
+                        <span>@orderProduct.Product.Name</span>
+                    </td>
+                    <td>@orderProduct.SellPrice</td>
+                    <td>@orderProduct.Qty</td>
+                    <td>@orderProduct.Total</td>
+                    <td></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+
+</div>
+<partial name="_pager" />
+
+<!-- End Contenet -->

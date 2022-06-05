@@ -1,0 +1,97 @@
+﻿<div class="mobile-nav" id="mobile-navigation">
+    <div class="close-nav">
+        <i class="fa fa-times" onclick="closeMobileNav()"></i>
+    </div>
+    <div class="list">
+        <ul class="navbar-nav">
+            <li>
+                <a asp-controller="Dashboard" asp-action="Index">
+                    <span>الصفحة الرئيسية</span>
+                </a>
+            </li>
+            <li class="nav-link" onclick="displayLink(this)">
+                <a href="#">
+                    <span>فواتير المشتريات</span>
+                </a>
+                <ul class="hidden-list">
+                    <li><a  asp-controller="PurchasesInvoice" asp-action="Index">قائمة فواتير المشتريات</a></li>
+                    <li><a href="#">إنشاء فاتورة مشتريات</a></li>
+                </ul>
+            </li>
+            <li class="nav-link" onclick="displayLink(this)">
+                <a href="#">
+                    <span>فواتير المبيعات</span>
+                </a>
+                <ul class="hidden-list">
+                    <li><a asp-controller="SealsInvoices" asp-action="Index">قائمة فواتير المبيعات</a></li>
+                    <li><a href="#">إنشاء فاتورة مبيعات</a></li>
+                </ul>
+            </li>
+            <li class="nav-link" onclick="displayLink(this)">
+                <a asp-controller="Quotations" asp-action="Index">
+                    <span>عروض الاسعار</span>
+                </a>
+                <ul class="hidden-list">
+                    <li><a asp-controller="Quotations" asp-action="Index">قائمة عروض الاسعار</a></li>
+                    <li><a>إنشاء عرض سعر</a></li>
+                </ul>
+            </li>
+            <li class="nav-link" onclick="displayLink(this)">
+                <a href="#">
+                    <span>المنتجات</span>
+                </a>
+                <ul class="hidden-list">
+                    <li><a asp-action="Index" asp-controller="Products">قائمة المنتجات</a></li>
+                    <li><a asp-action="Create" asp-controller="Products">إنشاء منتج</a></li>
+                </ul>
+            </li>
+            <!--<li class="nav-link" onclick="displayLink(this)">
+                <a href="#">
+                    <span>الطلبات</span>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة الطلبات المكتملة</a></li>
+                    <li><a href="#">قائمة الطلبات الغير مكتملة</a></li>
+                    <li><a href="#">إنشاء طلب</a></li>
+                </ul>
+            </li>-->
+            <li class="nav-link" onclick="displayLink(this)">
+                <a href="#">
+                    <span>العملاء</span>
+                </a>
+                <ul class="hidden-list">
+                    <li><a asp-controller="Customer" asp-action="Index">قائمة العملاء</a></li>
+                    <li><a asp-controller="Customer" asp-action="Create">إنشاء عميل</a></li>
+                </ul>
+            </li>
+            <li class="nav-link" onclick="displayLink(this)">
+                <a href="#">
+                    <span>الموردين</span>
+                </a>
+                <ul class="hidden-list">
+                    <li><a asp-controller="Supplier" asp-action="Index">قائمة الموردين</a></li>
+                    <li><a asp-controller="Supplier" asp-action="Create">إنشاء مورد</a></li>
+                </ul>
+            </li>
+            <li class="nav-link" onclick="displayLink(this)">
+                <a href="#">
+                    <span>المستخدمين</span>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة المستخدمين</a></li>
+                    <li><a href="#">إنشاء مستخدم</a></li>
+                </ul>
+            </li>
+            <li class="nav-link" onclick="displayLink(this)">
+                <a href="#">
+                    <span>الاعدادات</span>
+                </a>
+                <ul class="hidden-list">
+                    <li><a asp-controller="Enterprise" asp-action="EditEnterprise">معلومات المنشأة</a></li>
+                    <li><a asp-controller="Enterprise" asp-action="Category">الفئات</a></li>
+                    <li><a asp-controller="Enterprise" asp-action="Tax">الضرائب</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

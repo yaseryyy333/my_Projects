@@ -1,0 +1,88 @@
+﻿@model Matjary.Models.Address
+@{
+    ViewData["Title"] = "MyAddress";
+}
+
+<!-- Start Content -->
+<div class="user-settings">
+    <ul>
+        <a href="~/Store/UserInfo">
+            <li>
+                <i class="fa fa-user"></i>
+                <span>حسابي</span>
+            </li>
+        </a>
+        <a href="~/Store/EditUser">
+            <li>
+                <i class="fa fa-user-edit"></i>
+                <span>تعديل الحساب</span>
+            </li>
+        </a>
+        <a href="~/Store/ListMyOrders">
+            <li>
+                <i class="fa fa-clipboard-list"></i>
+                <span>طلباتي</span>
+            </li>
+        </a>
+        <a href="~/Store/MyAddress">
+            <li class="active">
+                <i class="fa fa-address-card"></i>
+                <span>عناويني</span>
+            </li>
+        </a>
+        <a href="~/Store/ShoppingCart">
+            <li>
+                <i class="fa fa-shopping-bag"></i>
+                <span>سلة التسوق</span>
+            </li>
+        </a>
+    </ul>
+    <div class="display-info" style="width: 100%">
+        <div>
+            <i class="fa fa-address-card"></i>
+            <span>عناويني</span>
+        </div>
+        <div class="row">
+            <div class="new-address col-xl-8 col-lg-8 col-md-8 col-sm-12">
+                <i class="fa fa-info-circle"></i>
+                <span>اضافة عنوان جديد</span>
+                <form asp-action="MyAddress" method="post">
+                    <div class="faild">
+                        <label>المدينة :</label>
+                        <select asp-for="City" class="form-control">
+                            @foreach (var City in ViewData["add"] as IEnumerable<Address>)
+                            {
+                                <option>@City.City</option>
+                            }
+                        </select>
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+
+                    <div class="faild">
+                        <label>المنطقة :</label>
+                        <input asp-for="Street" type="text" class="form-control" placeholder="ادخل اسم المنطقة">
+                        <span asp-validation-for="Street" class="text-danger"></span>
+
+
+                    </div>
+                    <input type="submit" value="اضافة العنوان" class="submit">
+                </form>
+            </div>
+            <div class="my-list-address col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                <i class="fa fa-info-circle"></i>
+                <span>العناوين المضافة</span>
+                @foreach (var info in ViewData["address"] as IEnumerable<Address>)
+                {
+                    <div class="list">
+                        <label>المدينة :</label>
+                        <span>@info.City</span>
+                        <br>
+                        <label>المنطقة :</label>
+                        <span>@info.Street</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Contenet -->

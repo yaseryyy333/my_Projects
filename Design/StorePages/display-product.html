@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="khalid abdulman'a">
+    <title>display Product</title>
+    <!--CSS file-->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="css/all.min.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+    <!--Google font-->
+    <link rel="stylesheet" href="css/Tajawalfont.css">
+</head>
+
+<body>
+    <!--Start TopBar-->
+    <nav class=" topbar">.
+        <!-- logo or name of store -->
+        <div class="r-content">
+              <a class="logo" href="./Store-Homepage.html"></a>
+
+            <div class="search">
+                <select class="filter-search ">
+
+
+                    <option>
+                        الكل
+                    </option>
+                    <option>
+                        العطور
+                    </option>
+                    <option>
+                        كهربائيات
+                    </option>
+                    <option>
+                        ملابس
+                    </option>
+                    <option>
+                        رياضة
+                    </option>
+
+
+                </select>
+
+                <input type="text" placeholder="ابحث في المتجر" class="form-control search">
+                <i class="fa fa-search"></i>
+            </div>
+        </div>
+        <div class="left-content">
+            <div class="login">
+                <a href="#">
+                    <i class="fa fa-user"></i>
+                    <h4 class="">تسجيل الدخول</h4>
+                </a>
+                <div class="login-options">
+      
+                    <a href="./login.html">
+                        <i class="fa fa-user"></i>
+                        <span> تسجيل الدخول</span>
+                    </a>
+                    <hr>
+                    <a href="./Regster.html">
+                        <i class="fa fa-user-plus "></i>
+                        <span> التسجيل
+                        </span>
+                    </a>
+                </div>
+            </div>
+           
+            <div class="cart">
+                <a>
+                    <span>0</span>
+                    <i class="fa fa-cart-plus"></i>
+                    <h4>سلة التسوق</h4>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <div class="cart-options">
+      
+                    <a href="./Shopping-Cart.html">
+                        <i class="fa fa-cart-plus"></i>
+                        <span> السلة</span>
+                    </a>
+                    <hr>
+                    <a href="./list-myOrders.html">
+                        <i class="fa fa-clipboard  "></i>
+                        <span> طلباتي
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--End TopBar-->
+
+    <!-- Start Content -->
+    <div class=" top-path">
+        <span> الصفحة الرئيسية</span>
+        <i class="fa fa-angle-left"></i>
+        <span>الاجهوة الالكترونية</span>
+        <i class="fa fa-angle-left"></i>
+        <span>كمبيوتر مكتبي</span>
+    </div>
+
+    <div class="Product">
+        <div>
+            <div>
+                <img onclick="getImage(this)" src="img/images.jfif" alt="">
+                <img onclick="getImage(this)" src="img/co.jfif" alt="">
+                <img onclick="getImage(this)" src="img/hp-1080x675.webp" alt="">
+            </div>
+
+        </div>
+        <div>
+            <img id="big-img" src="img/hp-1080x675.webp" alt=" big photoo">
+        </div>
+        <div>
+            <h4>كمبيوتر مكتبي</h4>
+            <h6>5000 ر.س</h6>
+            <h6><i>5500 ر.س</i> </h6>
+            <div>
+                <span>الكمية :</span>
+            </div>
+            <div>
+            <div onclick="addToCart(this)">
+                <i class="fa fa-cart-plus"></i>
+                إضافة الى السلة
+            </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="Product-Description">
+        <h4> وصف المنتج</h4>
+       
+        <div class="product-info">
+            <div>
+                <h5>المواصفات</h5>
+                <ul>
+                    <li>المعالج intel core 5 جديد</li>
+                    <li>معالج رسومات NVIDIA GeForce RTX 2060
+                    </li>
+                    <li>ذاكرة الوصول العشوائي بسعة من 8 جيجا بايت إلى 64 جيجا بايت</li>
+                    <li>نظام تشغيل وندوز 10</li>
+                </ul>
+            </div>
+            <div>
+                <h5>المميزات</h5>
+                <ul>
+                    <li>الجهاز يشغل المساحة الكبيرة في المنزل
+                    </li>
+                    <li>يتمكن من القيام بإنجاز المهام في وقت قياسي جدًا</li>
+                    <li>يحتوي على التصميم الفريد من نوعه، فهو تصميم مميز جدًا </li>
+                    <li>نظام تشغيل وندوز 10</li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--Start any category -->
+    <div class="style-products">
+        <h4 style="color: #8d5da7; margin-right: 0;font-weight: bold;" class="text-center">قد يعجبك أيضا</h4>
+        <div>
+            <div>
+
+                <div>
+                    <a href="./display-product.html">
+                        <h6>ساعة رولكس</h6>
+                        <div class="">
+                            <span>
+                                <i class="fa fa-camera"></i>
+                                <b>4</b>
+                            </span>
+                            <img src="img/Luxury.jpg" width="130" height="130" alt="">
+                        </div>
+                        <h5>600ر.س</h5>
+                        <h5>800ر.س</h5>
+                    </a>
+                    <div>
+                        <div  onclick="addToCart(this)" class="">
+                            <i class="fa fa-cart-plus"></i>
+                            <span>اضف الئ السلة</span>
+                        </div>
+                    </div>
+                    <p class="whenHover"></p>
+                </div>
+                <i id="" class="line"></i>
+                <div>
+                    <a href="./display-product.html">
+                        <h6>ساعة رولكس</h6>
+                        <div class="">
+                            <span>
+                                <i class="fa fa-camera"></i>
+                                <b>4</b>
+                            </span>
+                            <img src="img/Luxury.jpg" width="130" height="130" alt="">
+                        </div>
+                        <h5>600ر.س</h5>
+                        <h5>800ر.س</h5>
+                    </a>
+                    <div>
+                        <div  onclick="addToCart(this)" class="">
+                            <i class="fa fa-cart-plus"></i>
+                            <span>اضف الئ السلة</span>
+                        </div>
+                    </div>
+                    <p class="whenHover"></p>
+                </div>
+
+                <i id="" class="line"></i>
+                <div>
+                    <a href="./display-product.html">
+                        <h6>ساعة رولكس</h6>
+                        <div class="">
+                            <span>
+                                <i class="fa fa-camera"></i>
+                                <b>4</b>
+                            </span>
+                            <img src="img/Luxury.jpg" width="130" height="130" alt="">
+                        </div>
+                        <h5>600ر.س</h5>
+                        <h5>800ر.س</h5>
+                    </a>
+                    <div>
+                        <div  onclick="addToCart(this)" class="">
+                            <i class="fa fa-cart-plus"></i>
+                            <span>اضف الئ السلة</span>
+                        </div>
+                    </div>
+                    <p class="whenHover"></p>
+                </div>
+                <i id="" class="line"></i>
+                <div>
+                    <a href="./display-product.html">
+                        <h6>ساعة رولكس</h6>
+                        <div class="">
+                            <span>
+                                <i class="fa fa-camera"></i>
+                                <b>4</b>
+                            </span>
+                            <img src="img/Luxury.jpg" width="130" height="130" alt="">
+                        </div>
+                        <h5>600ر.س</h5>
+                        <h5>800ر.س</h5>
+                    </a>
+                    <div>
+                        <div  onclick="addToCart(this)" class="">
+                            <i class="fa fa-cart-plus"></i>
+                            <span>اضف الئ السلة</span>
+                        </div>
+                    </div>
+                    <p class="whenHover"></p>
+                </div>
+                <i id="" class="line"></i>
+                <div>
+                    <a href="./display-product.html">
+                        <h6>ساعة رولكس</h6>
+                        <div class="">
+                            <span>
+                                <i class="fa fa-camera"></i>
+                                <b>4</b>
+                            </span>
+                            <img src="img/Luxury.jpg" width="130" height="130" alt="">
+                        </div>
+                        <h5>600ر.س</h5>
+                        <h5>800ر.س</h5>
+                    </a>
+                    <div>
+                        <div  onclick="addToCart(this)" class="">
+                            <i class="fa fa-cart-plus"></i>
+                            <span>اضف الئ السلة</span>
+                        </div>
+                    </div>
+                    <p class="whenHover"></p>
+                </div>
+                <i id="" class="line"></i>
+                <div>
+                    <a href="./display-product.html">
+                        <h6>ساعة رولكس</h6>
+                        <div class="">
+                            <span>
+                                <i class="fa fa-camera"></i>
+                                <b>4</b>
+                            </span>
+                            <img src="img/Luxury.jpg" width="130" height="130" alt="">
+                        </div>
+                        <h5>600ر.س</h5>
+                        <h5>800ر.س</h5>
+                    </a>
+                    <div>
+                        <div  onclick="addToCart(this)" class="">
+                            <i class="fa fa-cart-plus"></i>
+                            <span>اضف الئ السلة</span>
+                        </div>
+                    </div>
+                    <p class="whenHover"></p>
+                </div>
+
+            </div>
+           
+        </div>
+    </div>
+    <!--End any category -->
+
+    <!-- End Contenet -->
+    <!-- start footer -->
+    <div class="footer">
+        <div class="my-acount col col-12 col-sm-6 col-md-3">
+            <h5>حسابي</h5>
+            <ul>
+                <li><a href="#">دخول/تسجيل</a></li>
+                <li><a href="#">سلة التسوق</a></li>
+                <li><a href="#">طلباتي</a></li>
+                <li><a href="#">عناويني</a></li>
+                <li><a href="#">إعدادات الحساب</a></li>
+            </ul>
+        </div>
+        <div class="how-are-we col col-12 col-sm-6 col-md-3">
+            <h5>من نحن</h5>
+            <ul>
+                <li><a href="#">عن متجري</a></li>
+                <li><a href="#">مبرمجي الموقع</a></li>
+            </ul>
+        </div>
+        <div class="contact-us col col-12 col-sm-6 col-md-3">
+            <h5>تواصل معنى</h5>
+            <ul>
+                <li>عبر الاتصال على الرقم المجاني<br/>777777777</li>
+                <li>عبر البريد الاكتروني<br/>Matjary@info.com</li>
+            </ul>
+        </div>
+        <div class="social-media col col-12 col-sm-6 col-md-3">
+            <h5>تابعنا على</h5>
+            <ul>
+                <li><a href="#"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a href="#"><i class="fab fa-youtube-square fa-2x"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- End footer -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Matjary.Models.Categories>
+@{
+    ViewData["Title"] = "عرض الفئات";
+    Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+}
+
+
+
+
+<!--Start Page Content-->
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title">
+            <i class="fa fa-cog"></i>
+            <h6>الاعدادات</h6>
+            <i class="fa fa-angle-left"></i>
+            <h6>الفئات</h6>
+        </div>
+        <div class="row">
+            <div class="col-md-7 col-sm-12 mb-4">
+                <div class="page-info shadow">
+                    <div class="title">
+                        <i class="fa fa-cog"></i>
+                        <h6>الفئات</h6>
+                    </div>
+                    <div class="content">
+                        <div style="overflow-x: auto;">
+                            <table class="table" style="margin-top: 0;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">الفئة</th>
+                                        <th scope="col" class="text-right">عمليات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int Counter = 0;}
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            @{Counter++;}
+                                            <th scope="row">@Counter</th>
+                                            <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
+                                            <td class="text-right">
+                                                <a asp-action="DeleteCategory" asp-route-id="@item.Id" onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                                <a asp-action="EditCategory" asp-route-id="@item.Id"><i class="fa fa-edit fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12">
+                <div class="page-info shadow">
+                    <div class="title">
+                        <i class="fa fa-cog"></i>
+                        <h6>إضافة فئة</h6>
+                    </div>
+                    <div class="content">
+                        <form asp-action="Category" method="post">
+                            <!--Add Form Details Here-->
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-12 col-form-label">اسم الفئة :</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input type="text" class="form-control" name="CategoryName">
+                                    <span class="text-danger">
+                                        @Html.ValidationMessage("CategoryNameError")
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="submit-btn">
+                                <button type="submit" class="btn"><i class="fa fa-plus"></i>اضف الفئة</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page Content-->
+
+@section scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

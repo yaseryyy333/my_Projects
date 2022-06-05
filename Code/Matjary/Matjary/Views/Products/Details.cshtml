@@ -1,0 +1,116 @@
+﻿@model Matjary.Models.Products
+
+@{
+    ViewData["Title"] = "عرض المنتج";
+    Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+}
+
+<!--Start Page Content-->
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title">
+            <i class="fab fa-product-hunt"></i>
+            <h6>المنتجات</h6>
+            <i class="fa fa-angle-left"></i>
+            <h6>عرض المنتج</h6>
+            <i class="fa fa-angle-left"></i>
+            <h6>عطر رجالي</h6>
+        </div>
+        <div class="page-info shadow">
+            <div class="title">
+                <i class="fab fa-product-hunt"></i>
+                <h6>عرض المنتج</h6>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">اسم المنتج :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">@Html.DisplayFor(model => model.Name)</span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">رمز المنتج :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">@Html.DisplayFor(model => model.Sku)</span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">سعر البيع :</span>
+                            <span class="col-md-3 col-sm-12 col-form-label">@Html.DisplayFor(model => model.SellPrice) SR</span><!--Put Server Variable Here-->
+                            <span class="col-md-3 col-sm-12 col-form-label">التكلفة :</span>
+                            <span class="col-md-3 col-sm-12 col-form-label">@Html.DisplayFor(model => model.Cost) SR</span><!--Put Server Variable Here-->
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">فئة المنتج :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">@Html.DisplayFor(model => model.Category.CategoryName)</span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">الخصم :</span>
+                            <span class="col-md-3 col-sm-12 col-form-label">@Html.DisplayFor(model => model.DiscountRate) SR</span><!--Put Server Variable Here-->
+                            <span class="col-md-3 col-sm-12 col-form-label">الكمية :</span>
+                            <span class="col-md-3 col-sm-12 col-form-label">@Html.DisplayFor(model => model.Store.Qty) Pcs</span><!--Put Server Variable Here-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <span class="col-sm-12 col-form-label">وصف المنتج :</span>
+                            <span class="col-sm-12 col-form-label" style="max-width: fit-content;">@Html.DisplayFor(model => model.Description)</span><!--Put Server Variable Here-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <span class="col-sm-12 col-form-label">صور المنتج :</span>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <!--Print Your Image Here-->
+                                    @if (Model.ProductPhoto.Count > 0)
+                                    {
+                                        foreach (var photo in Model.ProductPhoto)
+                                        {
+                                            <div class="col-md-4 col-sm-12">
+                                                <a href="~/Dashboard/img/products/@photo.Photo" target="_blank"><img class="img-thumbnail" src="~/Dashboard/img/products/@photo.Photo"></a>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-12">
+                        <div class="form-group row">
+                            <label class="col-sm-12 col-form-label">موردين المنتج :</label>
+                            <div class="col-sm-12">
+                                <div style="overflow-x: auto;">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                            @if (Model.ProductPersons.Count > 0)
+                                            {
+                                                foreach (var supplier in Model.ProductPersons)
+                                                {
+                                                    <tr>
+                                                        <td>@supplier.Person.Name</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-operation">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn"><i class="fa fa-edit"></i>تعديل المنتج</a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="delete-btn btn" onclick="return confirm('هل انت متأكد')"><i class="fa fa-edit"></i>حذف المنتج</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page Content-->

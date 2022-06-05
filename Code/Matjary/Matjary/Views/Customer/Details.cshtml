@@ -1,0 +1,85 @@
+﻿@model Matjary.Models.Persons
+
+@{
+    ViewData["Title"] = "عرض العميل";
+    Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+}
+
+
+
+<!--Start Page Content-->
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title">
+            <i class="fa fa-user-friends"></i>
+            <h6>العملاء</h6>
+            <i class="fa fa-angle-left"></i>
+            <h6>عرض المورد</h6>
+            <i class="fa fa-angle-left"></i>
+            <h6>
+                @Html.DisplayFor(model => model.Name)
+            </h6>
+        </div>
+        <div class="page-info shadow">
+            <div class="title">
+                <i class="fa fa-user-friends"></i>
+                <h6>عرض العميل</h6>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">اسم العميل :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">
+                                @Html.DisplayFor(model => model.Name)
+                            </span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">رقم التلفون :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">
+                                @Html.DisplayFor(model => model.Telephone)
+                            </span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">الايميل :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">
+                                @Html.DisplayFor(model => model.Email)
+                            </span><!--Put Server Variable Here-->
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">عنوان العميل :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">
+                                @Html.DisplayFor(model => model.Address)
+                            </span><!--Put Server Variable Here-->
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-md-3 col-sm-12 col-form-label">رقم الجوال :</span>
+                            <span class="col-md-9 col-sm-12 col-form-label">
+                                @Html.DisplayFor(model => model.Mobile)
+                            </span><!--Put Server Variable Here-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group row">
+                            <span class="col-sm-12 col-form-label">ملاحظات :</span>
+                            <span class="col-sm-12 col-form-label" style="max-width: fit-content;">
+                                
+                                    @((Model.Note == null) ? "لا يوجد ملاحظات" : Model.Note)
+                                
+                            </span><!--Put Server Variable Here-->
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-operation">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn"><i class="fa fa-edit"></i>تعديل العميل</a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="delete-btn btn" onclick="return confirm('هل انت متأكد')"><i class="fa fa-edit"></i>حذف العميل</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page Content-->

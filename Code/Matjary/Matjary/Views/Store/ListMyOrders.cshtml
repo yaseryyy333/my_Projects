@@ -1,0 +1,94 @@
+﻿@model PagedList.Core.PagedList<Order>
+@{
+    ViewData["Title"] = "ListMyOrders";
+    ViewData["currentpage"] = "ListMyOrders";
+}
+
+
+<!-- Start Content -->
+<div class="user-settings">
+    <ul>
+        <a href="~/Store/UserInfo">
+            <li>
+                <i class="fa fa-user"></i>
+                <span>حسابي</span>
+            </li>
+        </a>
+        <a href="~/Store/EditUser">
+            <li>
+                <i class="fa fa-user-edit"></i>
+                <span>تعديل الحساب</span>
+            </li>
+        </a>
+        <a href="~/Store/ListMyOrders">
+            <li class="active">
+                <i class="fa fa-clipboard-list"></i>
+                <span>طلباتي</span>
+            </li>
+        </a>
+        <a href="~/Store/MyAddress">
+            <li>
+                <i class="fa fa-address-card"></i>
+                <span>عناويني</span>
+            </li>
+        </a>
+        <a href="~/Store/ShoppingCart">
+            <li>
+                <i class="fa fa-shopping-bag"></i>
+                <span>سلة التسوق</span>
+            </li>
+        </a>
+    </ul>
+    <div class="list-orders">
+        <div>
+            <i class="fa fa-clipboard-list"></i>
+            <span>طلباتي</span>
+        </div>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">التاريخ</th>
+                    <th scope="col">عدد المنتجات</th>
+                    <th scope="col">الأجمالي</th>
+                    <th scope="col">الحالة</th>
+                    <th scope="col">العمليات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int number = 1;}
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@number</th>
+                        <td>@item.Date</td>
+                        <td>@item.OrderProducts.Count()</td>
+                        @*<td>
+                                <a href="@item.Id/orders.html"><i class="fa fa-eye"></i></a>
+                            </td>*@
+                        <td>@item.Total</td>
+                        <td>@item.Status</td>
+                        <td>
+                            <a href="@Url.Action("Orders","Store",new { iD=item.Id})">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                        </td>
+                    </tr>
+                    number += 1;
+                }
+            </tbody>
+        </table>
+        @*@Html.ActionLink("Show", "UserInfo", new { id=1})*@
+        @*@Html.ActionLink("Show", "MyAddress", new { id = 1 })*@
+
+
+
+        <partial name="_pager" />
+
+    </div>
+
+
+
+</div>
+<!-- End Contenet -->

@@ -1,0 +1,306 @@
+﻿@model IList<Matjary.Models.Products>
+
+
+@{
+    @using Matjary.Controllers.handle_session_objects;
+    ViewData["Title"] = "HomePage";
+    List<Products> session = Context.Session.GetComplexData<List<Products>>("Products");
+    if (session == null) { session = new List<Products>(); }
+    bool IsinSession = false;
+}
+
+@{
+    int x = 0;
+
+    int discount = 0;
+    double count = Model.Count();
+    List<Products> newproduct = Model.OrderByDescending(d => d.Id).ToList(); //for new products Section
+    List<Products> offersProduct = Model.Where(d => d.DiscountRate > 0).ToList();//for offers products Section
+    List<Products> OtherProduct = Model.ToList();
+    int c = OtherProduct.Count() - 1;
+    var random = new Random();
+    var index = random.Next(0, c);
+    List<int> choise = new List<int>();
+    List<Categories> cat= ViewData["Category"] as List<Categories>;
+
+
+    if (count < 6)
+    {
+        count = 1;
+    }
+    else
+    {
+        count = count / 6.0;
+        if (count.ToString().Contains('.') & !count.ToString().Contains(".0"))
+        {
+            count = Convert.ToInt32(count);
+
+        }
+
+    }
+}
+  
+<!-- Start Content -->
+<div class="top-category">
+    @for(int i=0;i<cat.Count();i++ )
+    {
+    <a  asp-action="Category" asp-route-id="@cat[i].Id")">@cat[i].CategoryName</a>
+    <span>|</span>
+
+    }
+
+</div>
+
+<div class="home-page">
+    <h4>احدث المنتجات</h4>
+    <!--Start new-products -->
+    <div class="style-products">
+        <div class="hiddenproducts">
+            @for (int j = 0; j < count; j++)
+            {
+                if (j == 0)
+                {
+                    x = 0;
+                }
+                else
+                {
+                    x = x + 6;
+                }
+                <div class="heightOflist">
+
+                    @for (int i = x; i < newproduct.Count(); i++)
+                    {
+
+
+                        if (x + 6 == i) { break; }
+                        discount = Convert.ToInt32((newproduct[i].SellPrice * (newproduct[i].DiscountRate / 100)));
+
+                        <div>
+                            <a asp-action="DisplayProduct" asp-route-id="@newproduct[i].Id">
+                                <h6>@newproduct[i].Name</h6>
+                                <div class="">
+                                    <span>
+                                        <i class="fa fa-camera"></i>
+                                        <b>@newproduct[i].ProductPhoto.ToList().Count()</b>
+                                    </span>
+                              
+                                    <img src="~/Dashboard/img/products/@newproduct[i].ProductPhoto.FirstOrDefault().Photo" width="130" height="130" alt="">
+                                </div>
+                                <h5>@(newproduct[i].SellPrice - discount) ر.ي</h5>
+                             
+                                @if (newproduct[i].DiscountRate == 0)
+                                {<h5>لا يوجد خصم</h5>}
+                                else
+                                {<h5>  @newproduct[i].SellPrice ر.ي</h5>}
+
+                            </a>
+                            <div>
+                                @foreach (var product in session)
+                                {
+                                    if (product.Id == newproduct[i].Id) { IsinSession = true; break; }
+
+                                }
+                                @if (IsinSession == false)
+                                {
+                                    <div onclick="addToCart(this,@newproduct[i].Id)" class="">
+                                        <i class="fa fa-cart-plus"></i><a data-ajax="true" data-ajax-method="get" data-ajax-loading="#loader" data-ajax-url="@Url.Action("SessionManagment", "Store", new { id =newproduct[i].Id,delete=false }) "> <span>اضف الئ السلة</span></a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div onclick="addToCart(this)" class="true" style="background-color: rgb(69, 167, 135); cursor: default; position: relative;">
+                                        <span>تم بنجاح</span>
+                                    </div>
+                                    <a id="x" data-ajax="true" data-ajax-method="get" data-ajax-loading="#loader" data-ajax-url="@Url.Action("SessionManagment", "Store", new{ id=newproduct[i].Id ,delete=true})"><i id="removeFromCart" onclick="removeFromCart(this,@newproduct[i].Id)" class="far fa-times-circle"></i> <span class="tooltiptext">تراجع عن الأضافة</span></a>
+                                    IsinSession = false;
+                                }
+                            </div>
+                            <p class="whenHover"></p>
+                        </div>
+                        <i id="" class="line"></i>
+
+
+
+                    }
+
+
+
+                </div>
+                <br>
+
+            }
+        </div>
+        <br />
+        <div> <button onclick="showMoreProducct(0,this)" id="showMore">اظهر المزيد</button></div>
+    </div>
+    <!-- End new-products -->
+    <!--Start offers -->
+    <h4>العروض</h4>
+    <div class="style-products">
+        <div class="hiddenproducts">
+            @for (int j = 0; j < count; j++)
+            {
+                if (j == 0)
+                {
+                    x = 0;
+                }
+                else
+                {
+                    x = x + 6;
+                }
+                <div class="heightOflist">
+
+
+                    @for (int i = x; i < offersProduct.Count(); i++)
+                    {
+                        if (x + 6 == i) { break; }
+                        discount = Convert.ToInt32( (offersProduct[i].SellPrice * (offersProduct[i].DiscountRate / 100)));
+                        <div>
+                            <a asp-action="DisplayProduct" asp-route-id="@offersProduct[i].Id">
+                                <h6>@offersProduct[i].Name</h6>
+                                <div class="">
+                                    <span>
+                                        <i class="fa fa-camera"></i>
+                                        <b>@offersProduct[i].ProductPhoto.ToList().Count()</b>
+                                    </span>
+                                    <img src="~/Dashboard/img/products/@offersProduct[i].ProductPhoto.FirstOrDefault().Photo" width="130" height="130" alt="">
+                                </div>
+                                <h5>@(offersProduct[i].SellPrice - discount) ر.ي </h5>
+                                <h5>  @offersProduct[i].SellPrice ر.ي</h5>
+                            </a>
+                            <div>
+                                @foreach (var product in session)
+                                {
+                                    if (product.Id == offersProduct[i].Id) { IsinSession = true; break; }
+
+                                }
+                                @if (IsinSession == false)
+                                {
+                                    <div onclick="addToCart(this,@offersProduct[i].Id)" class="">
+                                        <i class="fa fa-cart-plus"></i><a data-ajax="true" data-ajax-method="get" data-ajax-loading="#loader" data-ajax-url="@Url.Action("SessionManagment", "Store", new { id =offersProduct[i].Id,delete=false }) "> <span>اضف الئ السلة</span></a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div onclick="addToCart(this)" class="true" style="background-color: rgb(69, 167, 135); cursor: default; position: relative;">
+                                        <span>تم بنجاح</span>
+                                    </div>
+                                    <a id="x" data-ajax="true" data-ajax-method="get" data-ajax-loading="#loader" data-ajax-url="@Url.Action("SessionManagment", "Store", new{ id=offersProduct[i].Id ,delete=true})"><i id="removeFromCart" onclick="removeFromCart(this,@offersProduct[i].Id)" class="far fa-times-circle"></i> <span class="tooltiptext">تراجع عن الأضافة</span></a>
+                                    IsinSession = false;
+                                }
+                            </div>
+                            <p class="whenHover"></p>
+                        </div>
+                        <i id="" class="line"></i>
+                    }
+
+
+
+                </div>
+                <br>
+
+            }
+        </div>
+        <br />
+        <div> <button onclick="showMoreProducct(1,this)" id="showMore">اظهر المزيد</button></div>
+
+    </div>
+   
+
+    <!-- End offers -->
+    <h4>أخرى</h4>
+    <!--Start any category -->
+    <div class="style-products">
+        <div class="hiddenproducts">
+            @for (int j = 0; j < count; j++)
+            {
+                if (j == 0)
+                {
+                    x = 0;
+                }
+                else
+                {
+                    x = x + 6;
+                }
+                <div class="heightOflist">
+
+
+                    @for (int i = x; i < OtherProduct.Count(); i++)
+                    {
+                        if (x + 6 == i) { break; }
+
+                        for (int r = 0; r < 999; r++)
+                        {
+                            if (choise.Contains(index)) { index = random.Next(0, c); } else { choise.Add(index); break; }
+                        }
+
+
+                        discount = Convert.ToInt32( (OtherProduct[index].SellPrice * (OtherProduct[index].DiscountRate / 100)));
+
+                        <div>
+                            <a asp-action="DisplayProduct" asp-route-id="@OtherProduct[index].Id">
+                                <h6>@OtherProduct[index].Name</h6>
+                                <div class="">
+                                    <span>
+                                        <i class="fa fa-camera"></i>
+                                        <b>@OtherProduct[index].ProductPhoto.ToList().Count()</b>
+                                    </span>
+                                    <img src="~/Dashboard/img/products/@OtherProduct[index].ProductPhoto.FirstOrDefault().Photo" width="130" height="130" alt="">
+                                </div>
+                                <h5>@(OtherProduct[index].SellPrice - discount) ر.ي</h5>
+                                @if (OtherProduct[index].DiscountRate == 0)
+                                {<h5>لا يوجد خصم</h5>}
+                                else
+                                {<h5>  @OtherProduct[index].SellPrice ر.ي</h5>}
+                               
+
+                            </a>
+                            <div>
+                                @foreach (var product in session)
+                                {
+                                    if (product.Id == OtherProduct[index].Id) { IsinSession = true; break; }
+
+                                }
+                                @if (IsinSession == false)
+                                {
+                                    <div onclick="addToCart(this,@OtherProduct[index].Id)" class="">
+                                        <i class="fa fa-cart-plus"></i><a data-ajax="true" data-ajax-method="get" data-ajax-loading="#loader" data-ajax-url="@Url.Action("SessionManagment", "Store", new { id=OtherProduct[index].Id,delete=false }) "> <span>اضف الئ السلة</span></a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div onclick="addToCart(this)" class="true" style="background-color: rgb(69, 167, 135); cursor: default; position: relative;">
+                                        <span>تم بنجاح</span>
+                                    </div>
+                                    <a id="x" data-ajax="true" data-ajax-method="get" data-ajax-loading="#loader" data-ajax-url="@Url.Action("SessionManagment", "Store", new{ id=OtherProduct[index].Id ,delete=true})"><i id="removeFromCart" onclick="removeFromCart(this,@OtherProduct[index].Id)" class="far fa-times-circle"></i> <span class="tooltiptext">تراجع عن الأضافة</span></a>
+                                    IsinSession = false;
+                                }
+                            </div>
+                            <p class="whenHover"></p>
+                        </div>
+                        <i id="" class="line"></i>
+
+
+
+                    }
+
+
+
+                </div>
+                <br>
+
+            }
+        </div>
+        <br />
+        <div> <button onclick="showMoreProducct(2,this)" id="showMore">اظهر المزيد</button></div>
+    </div>
+   
+
+</div>
+
+<!--End any category -->
+<!-- End Contenet -->
+@section fileupload{
+
+    <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+}

@@ -1,0 +1,167 @@
+﻿@model IEnumerable<Matjary.Models.Invoices>
+
+@{
+    ViewData["Title"] = "الرئيسية";
+    Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+}
+
+
+<!--Start Page Content-->
+<div class="container-fluid">
+    <!--Start Main Dashboard-->
+    <div class="main-dashboard">
+        <!--Start Statistics-->
+        <div class="statistics-date shadow" onclick="displayStatistics()">
+            <h3>الشهر الحالي</h3>
+            <i class="fa fa-angle-down"></i>
+        </div>
+        <div class="statistics-option shadow" id="st-option">
+            <ul>
+                <a asp-action="Index" asp-route-date="ThisMoth"><li>الشهر الحالي</li></a>
+                <a asp-action="Index" asp-route-date="PreviousMonth"><li>الشهر الماضي</li></a>
+                <a asp-action="Index" asp-route-date="ThisDay"><li>اليوم</li></a>
+            </ul>
+        </div>
+        <!--End Statistics-->
+        <!--Start Enterprise info-->
+        <div class="enterprise-info">
+            <div class="row justify-content-between text-center">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="content">
+                        <h5>المبيعات</h5>
+                        <h5>@TempData["totalSales"]SR</h5><!--Put the server variable Here-->
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="content">
+                        <h5>المشتريات</h5>
+                        <h5>@TempData["totalPurchase"]SR</h5><!--Put the server variable Here-->
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="content">
+                        <h5>الطلبات</h5>
+                        <h5>@TempData["countOrder"]</h5><!--Put the server variable Here-->
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="content">
+                        <h5>عروض الاسعار</h5>
+                        <h5>@TempData["countQuotations"]</h5><!--Put the server variable Here-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Enterprise info-->
+        <!--Start New Order-->
+        <div class="row">
+            <div class="col-12">
+                <div class="new-order shadow">
+                    <i class="fa fa-cart-plus icon"></i>
+                    <h4>الطلبات الجديدة</h4>
+                    <div class="order-table">
+                        <table class="table">
+                            <thead>    
+                                <tr>
+                                    <td>رقم الطلب</td>
+                                    <td>العميل</td>
+                                    <td>التاريخ</td>
+                                    <td>الاجمالي</td>
+                                    <td>الحالة</td>
+                                    <td>عمليات</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in (IEnumerable<Order>)TempData["Order"])
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.ApplicationUser.UserName</td>
+                                        <td>@item.Date.Date</td>
+                                        <td>@item.TotalVat SR</td>
+                                        <td>@item.Status</td>
+                                        <td>
+                                            <a asp-controller="Order" asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-eye fa-fw op"></i></a>
+                                            <a asp-controller="Order" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit fa-fw op"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End New Order-->
+        <!--Start Product-->
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="new-order shadow">
+                    <i class="fa fa-dollar-sign icon"></i>
+                    <h4>المنتجات الاكثر مبيعا</h4>
+                    <div class="order-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td>المنتج</td>
+                                    <td>الاجمالي</td>
+                                    <td>عمليات</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in (IEnumerable<Matjary.Controllers.theSum>)TempData["theBeasteSell"])
+                                {
+                                    <tr>
+                                        <td>@item.id</td>
+                                        <td>@item.nameProduct</td>
+                                        <td>@item.sellPrice SR</td>
+                                        <td>
+                                            <a asp-controller="Product" asp-action="Details" asp-route-id="@item.id"><i class="fa fa-eye fa-fw op"></i></a>
+                                            <a asp-controller="Product" asp-action="Edit" asp-route-id="@item.id"><i class="fa fa-edit fa-fw op"></i></a>
+                                        </td>
+                                    </tr>
+                                }                 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="new-order shadow">
+                    <i class="fa fa-cart-arrow-down icon-danger"></i>
+                    <h4>المنتجات التي قاربت على النفاذ</h4>
+                    <div class="order-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>#</td>
+                                    <td>المنتج</td>
+                                    <td>الكمية</td>
+                                    <td>عمليات</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in (IEnumerable<Store>)TempData["StoreFinsh"])
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Product.Name</td>
+                                        <td>@item.Qty</td>
+                                        <td>
+                                            <a asp-controller="Store" asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-eye fa-fw op"></i></a>
+                                            <a asp-controller="Store" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit fa-fw op"></i></a>
+                                        </td>
+                                    </tr>
+                                }                    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Product-->
+    </div>
+    <!--End Main Dashboard-->
+</div>
+<!--End Page Content-->

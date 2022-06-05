@@ -1,0 +1,150 @@
+﻿
+@using Matjary.Controllers.handle_session_objects
+@{
+    List<Products> RelatedProduct = ViewBag.RelatedProduct;
+    Products Model = ViewBag.getProduct;
+    ViewData["Title"] = "DisplayProduct";
+    int discount = 0;
+    discount = Convert.ToInt32((Model.Cost * (Model.DiscountRate / 100)));
+    List<Products> session = Context.Session.GetComplexData<List<Products>>("Products");
+    if (session == null) { session = new List<Products>(); }
+    bool IsinSession = false;
+
+}
+
+
+<!-- Start Content -->
+<div class=" top-path">
+    <a asp-action="HomePage"> الصفحة الرئيسية</a>
+    <i class="fa fa-angle-left"></i>
+    <a asp-action="Category" asp-route-id="@Model.Category.Id">@Model.Category.CategoryName</a>
+    <i class="fa fa-angle-left"></i>
+    <a>@Model.Name</a>
+</div>
+
+<div class="Product">
+    <div>
+        <div>
+           
+            <img onclick="getImage(this)" src="~/Dashboard/img/products/@(Model.ProductPhoto.ToList().Count()>=1 ? Model.ProductPhoto.ToList()[0].Photo :0.ToString())" alt="no image">
+            <img onclick="getImage(this)" src="~/Dashboard/img/products/@(Model.ProductPhoto.ToList().Count()>=2 ? Model.ProductPhoto.ToList()[1].Photo :0.ToString() )" alt="no image">
+            <img onclick="getImage(this)" src="~/Dashboard/img/products/@(Model.ProductPhoto.ToList().Count()>=3 ? Model.ProductPhoto.ToList()[2].Photo :0.ToString())" alt="no image">
+        </div>
+
+    </div>
+    <div>
+        <img id="big-img" src="~/Dashboard/img/products/@(Model.ProductPhoto.ToList().Count()>= 1 ? Model.ProductPhoto.ToList()[0].Photo :0.ToString())" alt=" big photoo">
+    </div>
+    <div>
+        <h4>@Model.Name</h4>
+        <h6>@(Model.SellPrice - discount) ر.ي</h6>
+        @if (Model.DiscountRate == 0)
+        {<h6><i>لايوجد خصم</i> </h6>}
+        else
+        { <h6><i>@Model.SellPrice ر.ي</i> </h6>}
+
+        <div>
+
+        </div>
+        
+        <div>
+            @foreach (var product2 in session)
+            {
+                if (product2.Id == Model.Id) { IsinSession = true; break; }
+
+            }
+            @if (IsinSession == false)
+            {
+                <div onclick="addToCart(this,@Model.Id)" class="">
+                    <i class="fa fa-cart-plus"></i><a data-ajax="true" data-ajax-method="get" data-ajax-loading="#loader" data-ajax-url="@Url.Action("SessionManagment", "Store", new { id =Model.Id,delete=false }) "> <span>اضف الئ السلة</span></a>
+                </div>
+            }
+            else
+            {
+                <div onclick="addToCart(this)" class="true" style="background-color: rgb(69, 167, 135); cursor: default; position: relative;">
+                    <span>تم بنجاح</span>
+                </div>
+                <a id="x" data-ajax="true" data-ajax-method="get" data-ajax-loading="#loader" data-ajax-url="@Url.Action("SessionManagment", "Store", new{ id=Model.Id ,delete=true})"><i id="removeFromCart" onclick="removeFromCart(this)" class="far fa-times-circle"></i> <span class="tooltiptext">تراجع عن الأضافة</span></a>
+                IsinSession = false;
+            }
+        </div>
+    </div>
+
+</div>
+<div class="Product-Description">
+    <h4> وصف المنتج</h4>
+    <h5>@Model.Description</h5>
+    <br />
+    <br />
+
+</div>
+<!--Start any category -->
+<div class="style-products">
+    <h4 style="color: #8d5da7; margin-right: 0;font-weight: bold;" class="text-center">قد يعجبك أيضا</h4>
+    <div class="hiddenproducts">
+        <div class="heightOflist">
+
+            @for (int i = 0; i < RelatedProduct.Count(); i++)
+            {
+
+                if (i == 6) { break; }
+
+                discount = Convert.ToInt32((RelatedProduct[i].SellPrice * (RelatedProduct[i].DiscountRate / 100)));
+
+            <div>
+                <a asp-action="DisplayProduct" asp-route-id="@RelatedProduct[i].Id">
+                    <h6>@RelatedProduct[i].Name</h6>
+                    <div class="">
+                        <span>
+                            <i class="fa fa-camera"></i>
+                            <b>@i</b>
+                        </span>
+                        <img src="~/Dashboard/img/products/@RelatedProduct[i].ProductPhoto.FirstOrDefault().Photo" width="130" height="130" alt="">
+                    </div>
+                    <h5>@(RelatedProduct[i].SellPrice - discount) ر.ي</h5>
+
+                    @if (RelatedProduct[i].DiscountRate == 0)
+                    {<h5>لا يوجد خصم</h5>}
+                    else
+                    {<h5>  @RelatedProduct[i].SellPrice ر.ي</h5>}
+
+                </a>
+                <div>
+                    @foreach (var product2 in session)
+                    {
+                        if (product2.Id == RelatedProduct[i].Id) { IsinSession = true; break; }
+
+                    }
+                    @if (IsinSession == false)
+                    {
+                        <div onclick="addToCart(this,@RelatedProduct[i].Id)" class="">
+                            <i class="fa fa-cart-plus"></i><a data-ajax="true" data-ajax-method="get" data-ajax-loading="#loader" data-ajax-url="@Url.Action("SessionManagment", "Store", new { id =RelatedProduct[i].Id,delete=false }) "> <span>اضف الئ السلة</span></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div onclick="addToCart(this)" class="true" style="background-color: rgb(69, 167, 135); cursor: default; position: relative;">
+                            <span>تم بنجاح</span>
+                        </div>
+                        <a id="x" data-ajax="true" data-ajax-method="get" data-ajax-loading="#loader" data-ajax-url="@Url.Action("SessionManagment", "Store", new{ id=RelatedProduct[i].Id ,delete=true})"><i id="removeFromCart" onclick="removeFromCart(this)" class="far fa-times-circle"></i> <span class="tooltiptext">تراجع عن الأضافة</span></a>
+                        IsinSession = false;
+                    }
+                </div>
+                <p class="whenHover"></p>
+            </div>
+                <i id="" class="line"></i>
+
+
+
+            }
+
+        </div>
+
+    </div>
+</div>
+<!--End any category -->
+<!-- End Contenet -->
+@section fileupload{
+
+    <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+}

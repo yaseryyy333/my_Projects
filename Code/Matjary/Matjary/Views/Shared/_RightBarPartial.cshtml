@@ -1,0 +1,125 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+    <ul class="navbar-nav right-bar" id="rightBar">
+        <a href="#" class="brand-logo">
+            <img src="~/Dashboard/img/Logo.svg" alt="Matjary-logo" title="matjary logo">
+        </a>
+        <div class="brand-content">
+            <a asp-controller="Store" asp-action="HomePage" target="_blank" class="brand-link">
+                <i class="fa fa-eye"></i>
+                عرض صفحة المتجر
+            </a>
+        </div>
+        <li class="nav-item active">
+            <a asp-controller="Dashboard" asp-action="Index">
+                <i class="fa fa-home fa-fw right-icon"></i>
+                <span>الصفحة الرئيسية</span>
+            </a>
+        </li>
+        <li class="nav-item" onclick="displayList(this)">
+            <a href="#">
+                <i class="fa fa-file-invoice fa-fw right-icon"></i>
+                <span>فواتير المشتريات</span>
+                <i class="fa fa-angle-left left-icon"></i>
+            </a>
+            <ul class="hidden-list">
+                <li><a asp-controller="PurchasesInvoice" asp-action="Index">قائمة فواتير المشتريات</a></li>
+                <li><a href="#">إنشاء فاتورة مشتريات</a></li>
+            </ul>
+        </li>
+        <li class="nav-item" onclick="displayList(this)">
+            <a href="#">
+                <i class="fa fa-file-invoice-dollar fa-fw right-icon"></i>
+                <span>فواتير المبيعات</span>
+                <i class="fa fa-angle-left left-icon"></i>
+            </a>
+            <ul class="hidden-list">
+                <li><a asp-controller="SealsInvoices" asp-action="Index">قائمة فواتير المبيعات</a></li>
+                <li><a href="#">إنشاء فاتورة مبيعات</a></li>
+            </ul>
+        </li>
+        <li class="nav-item" onclick="displayList(this)">
+            <a href="#">
+                <i class="fa fa-layer-group fa-fw right-icon"></i>
+                <span>عروض الاسعار</span>
+                <i class="fa fa-angle-left left-icon"></i>
+            </a>
+            <ul class="hidden-list">
+                <li><a asp-controller="Quotations" asp-action="Index">قائمة عروض الاسعار</a></li>
+                <li><a href="#">إنشاء عرض سعر</a></li>
+            </ul>
+        </li>
+        <li class="nav-item" onclick="displayList(this)">
+            <a href="#">
+                <i class="fab fa-product-hunt fa-fw right-icon"></i>
+                <span>المنتجات</span>
+                <i class="fa fa-angle-left left-icon"></i>
+            </a>
+            <ul class="hidden-list">
+                <li><a asp-action="Index" asp-controller="Products">قائمة المنتجات</a></li>
+                <li><a asp-action="Create" asp-controller="Products">إنشاء منتج</a></li>
+            </ul>
+        </li>
+        <!--<li class="nav-item" onclick="displayList(this)">
+            <a href="#">
+                <i class="fa fa-shopping-bag fa-fw right-icon"></i>
+                <span>الطلبات</span>
+                <i class="fa fa-angle-left left-icon"></i>
+            </a>
+            <ul class="hidden-list">
+                <li><a href="#">قائمة الطلبات المكتملة</a></li>
+                <li><a href="#">قائمة الطلبات الغير مكتملة</a></li>
+                <li><a href="#">إنشاء طلب</a></li>
+            </ul>
+        </li>-->
+        <li class="nav-item" onclick="displayList(this)">
+            <a href="#">
+                <i class="fa fa-users fa-fw right-icon"></i>
+                <span>العملاء</span>
+                <i class="fa fa-angle-left left-icon"></i>
+            </a>
+            <ul class="hidden-list">
+                <li><a asp-controller="Customer" asp-action="Index">قائمة العملاء</a></li>
+                <li><a asp-controller="Customer" asp-action="Create">إنشاء عميل</a></li>
+            </ul>
+        </li>
+        <li class="nav-item" onclick="displayList(this)">
+            <a href="#">
+                <i class="fa fa-user-friends fa-fw right-icon"></i>
+                <span>الموردين</span>
+                <i class="fa fa-angle-left left-icon"></i>
+            </a>
+            <ul class="hidden-list">
+                <li><a asp-controller="Supplier" asp-action="Index">قائمة الموردين</a></li>
+                <li><a asp-controller="Supplier" asp-action="Create">إنشاء مورد</a></li>
+            </ul>
+        </li>
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-user-circle fa-fw right-icon"></i>
+                    <span>المستخدمين</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة المستخدمين</a></li>
+                    <li><a href="#">إنشاء مستخدم</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-cog fa-fw right-icon"></i>
+                    <span>الاعدادات</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a asp-controller="Enterprise" asp-action="EditEnterprise">معلومات المنشأة</a></li>
+                    <li><a asp-controller="Enterprise" asp-action="Category">الفئات</a></li>
+                    <li><a asp-controller="Enterprise" asp-action="Tax">الضرائب</a></li>
+                </ul>
+            </li>
+        }
+    </ul>

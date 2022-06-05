@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Ibrahim BarBouD">
+    <title>Quotation Print</title>
+    <!--CSS file-->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="../css/all.min.css" rel="stylesheet" />
+    <link href="../css/main.css" rel="stylesheet" />
+    <!--Google font-->
+    <link rel="stylesheet" href="../css/Tajawalfont.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Start Company Information -->
+        <div class="company-information">
+            <div class="details text-center">
+                <h3>متجر المكلا للعطور</h3>
+                <h3>Mukalla Store</h3>
+                <h5>للتجارة والتسويق</h5>
+                <h6>C.R. 123456789</h6>
+            </div>
+            <div class="logo">
+                <img src="https://placehold.it/150" alt="Matjary-logo" width="150px">
+            </div>
+        </div>
+        <!-- End Company Infoormation -->
+        <!-- Start Title -->
+    <div class="invoice-title text-center">
+        <h5>عرض سعر</h5>
+    </div>
+    <!-- End Title -->
+    <!-- Start invoice Table -->
+    <div class="invoice-table">
+        <table class="table text-center">
+            <tbody>
+            <tr>
+                <td colspan="4" class="bg">إسم العميل</td>
+                <td colspan="8">محمد خالد</td>
+            </tr>
+            <!-- Display this row in specific Condition -->
+            <tr>
+                <td colspan="5" class="bg">تاريخ عرض السعر</td>
+                <td colspan="3">2021-06-14 07:19:52</td>
+                <td colspan="2" class="bg">رقم عرض السعر</td>
+                <td colspan="2">1</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="bg">الرقم الضريبي VAT</td>
+                <td colspan="8">123456789</td>
+            </tr>
+            <tr>
+                <td colspan="7" class="bg">
+                    المنتج<br>
+                    Product
+                </td>
+                <td colspan="1" class="bg">
+                    السعر<br>
+                    Price
+                </td>
+                <td colspan="1" class="bg">
+                    الضريبة<br>
+                    VAT
+                </td>
+                <td colspan="1" class="bg">
+                    الكمية<br>
+                    Qty
+                </td>
+                <td colspan="1" class="bg">
+                    الاجمالي<br>
+                    Total
+                </td>
+                <td colspan="1" class="bg">
+                    المجموع<br>
+                    Grand Total
+                </td>
+            </tr>
+            <!-- Foreach to print the proudct -->
+            <tr>
+                <td colspan="7">عطر رجالي</td>
+                <td colspan="1">150</td>
+                <td colspan="1">19.56</td>
+                <td colspan="1">10</td>
+                <td colspan="1">1304.3</td>
+                <td colspan="1">1499.9</td>
+            </tr>
+            <tr>
+                <td class="bg text-right mr-1 bg" colspan="11">الاجمالي</td>
+                <td colspan="1" class="bg">1304.3</td><!--put server variable here-->
+            </tr>
+            <tr>
+                <td class="bg text-right mr-1 bg" colspan="11">القيمة المضافة (15%)</td>
+                <td colspan="1" class="bg">195.6</td><!--put server variable here-->
+            </tr>
+            <tr>
+                <td class="bg text-right mr-1 bg" colspan="11">الاجمالي شامل القيمة المضافة</td>
+                <td colspan="1" class="bg">1499.9</td><!--put server variable here-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- End invoice Table -->
+    </div>
+    <script src="../js/jquery-3.4.1.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

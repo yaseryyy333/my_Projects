@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ar" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="khalid Abdulman'a">
+    <title>shopping Cart</title>
+    <!--CSS file-->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="css/all.min.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+    <!--Google font-->
+    <link rel="stylesheet" href="css/Tajawalfont.css">
+</head>
+
+<body>
+    <!--Start TopBar-->
+    <nav class=" topbar">.
+        <!-- logo or name of store -->
+        <div class="r-content">
+              <a class="logo" href="./Store-Homepage.html"></a>
+
+            <div class="search">
+                <select class="filter-search ">
+
+
+                    <option>
+                        الكل
+                    </option>
+                    <option>
+                        العطور
+                    </option>
+                    <option>
+                        كهربائيات
+                    </option>
+                    <option>
+                        ملابس
+                    </option>
+                    <option>
+                        رياضة
+                    </option>
+
+
+                </select>
+
+                <input type="text" placeholder="ابحث في المتجر" class="form-control search">
+                <i class="fa fa-search"></i>
+            </div>
+        </div>
+        <div class="left-content">
+            <div class="login">
+                <a href="#">
+                    <i class="fa fa-user"></i>
+                    <h4 class="">تسجيل الدخول</h4>
+                </a>
+                <div class="login-options">
+      
+                    <a href="./login.html">
+                        <i class="fa fa-user"></i>
+                        <span> تسجيل الدخول</span>
+                    </a>
+                    <hr>
+                    <a href="./Regster.html">
+                        <i class="fa fa-user-plus "></i>
+                        <span> التسجيل
+                        </span>
+                    </a>
+                </div>
+            </div>
+           
+            <div class="cart">
+                <a>
+                    <span>0</span>
+                    <i class="fa fa-cart-plus"></i>
+                    <h4>سلة التسوق</h4>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <div class="cart-options">
+      
+                    <a href="./Shopping-Cart.html">
+                        <i class="fa fa-cart-plus"></i>
+                        <span> السلة</span>
+                    </a>
+                    <hr>
+                    <a href="./list-myOrders.html">
+                        <i class="fa fa-clipboard  "></i>
+                        <span> طلباتي
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--End TopBar-->
+
+    <!-- Start Content -->
+    <div class=" top-path">
+        <span>الحساب الشخصي</span>
+        <i class="fa fa-angle-left"></i>
+        <span>سلة التسوق</span>
+    </div>
+    <div class="cart-info">
+        <i class="fa fa-cart-plus"></i>
+        <span> سلة التسوق</span>
+    </div>
+    <div class="list-of-cart">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">حذف</th>
+                    <th scope="col">العنصر</th>
+                    <th scope="col">سعر الحبة</th>
+                    <th scope="col">الكمية</th>
+                    <th scope="col">الاجمالي</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><i class="fa fa-trash-alt"></i></td>
+                    <td>
+                        <img src="img/Luxury.jpg" alt="" width="40" height="40">
+                        <span>رام 4جيجا</span>
+                    </td>
+                    <td>8000</td>
+                    <td>
+                        <input type="number" value="1" name="" id="">
+                    </td>
+                    <td>16000</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-trash-alt"></i></td>
+                    <td>
+                        <img src="img/Luxury.jpg" alt="" width="40" height="40">
+                        <span>رام 4جيجا</span>
+                    </td>
+                    <td>8000</td>
+                    <td>
+                        <input type="number" value="1" name="" id="">
+                    </td>
+                    <td>16000</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-trash-alt"></i></td>
+                    <td>
+                        <img src="img/Luxury.jpg" alt="" width="40" height="40">
+                        <span>رام 4جيجا</span>
+                    </td>
+                    <td>8000</td>
+                    <td>
+                        <input type="number" value="1" name="" id="">
+                    </td>
+                    <td>16000</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-trash-alt"></i></td>
+                    <td>
+                        <img src="img/Luxury.jpg" alt="" width="40" height="40">
+                        <span>رام 4جيجا</span>
+                    </td>
+                    <td>8000</td>
+                    <td>
+                        <input type="number" value="1" name="" id="">
+                    </td>
+                    <td>16000</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+            <div>الاجمالي: <span>16000</span></div>
+            <div>القيمة المضافة : <span>1200</span></div>
+            <div>الاجمالي مع القيمة المضافة : <span>17200</span></div>
+
+            </div>
+            <div class="col-md-6">
+                <p>ارفق سند التحويل</p>
+                <input type="file"  class="form-control-file border" ">
+                <br>
+                <img id="im" src="" width="200" height="150" alt="">
+            </div>
+        </div>
+        <div> <button>التالي</button></div>
+
+    </div>
+
+
+    <!-- End Contenet -->
+
+    <!-- start footer -->
+    <div class="footer">
+        <div class="my-acount col col-12 col-sm-6 col-md-3">
+            <h5>حسابي</h5>
+            <ul>
+                <li><a href="#">دخول/تسجيل</a></li>
+                <li><a href="#">سلة التسوق</a></li>
+                <li><a href="#">طلباتي</a></li>
+                <li><a href="#">عناويني</a></li>
+                <li><a href="#">إعدادات الحساب</a></li>
+            </ul>
+        </div>
+        <div class="how-are-we col col-12 col-sm-6 col-md-3">
+            <h5>من نحن</h5>
+            <ul>
+                <li><a href="#">عن متجري</a></li>
+                <li><a href="#">مبرمجي الموقع</a></li>
+            </ul>
+        </div>
+        <div class="contact-us col col-12 col-sm-6 col-md-3">
+            <h5>تواصل معنى</h5>
+            <ul>
+                <li>عبر الاتصال على الرقم المجاني<br/>777777777</li>
+                <li>عبر البريد الاكتروني<br/>Matjary@info.com</li>
+            </ul>
+        </div>
+        <div class="social-media col col-12 col-sm-6 col-md-3">
+            <h5>تابعنا على</h5>
+            <ul>
+                <li><a href="#"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a href="#"><i class="fab fa-youtube-square fa-2x"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- End footer -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

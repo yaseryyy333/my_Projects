@@ -1,0 +1,48 @@
+﻿@model Matjary.Models.Address
+
+
+@{ 
+
+}
+<!-- Start Content  -->
+<div id="A">
+    @{
+        ViewData["Title"] = "Address";
+    }
+    <div  class="address">
+        <h3> حدد موقع التسليم</h3>
+        <div style="background-color:white">
+            <form data-ajax-complete="completed" data-ajax-confirm="هل انت متأكد من العنوان؟" method="post" asp-action="ComplateOrder" id="addre" data-ajax="true" data-ajax-loading="#loader">
+
+                <select  asp-for="Id" class="form-control" asp-items="ViewBag.City"></select>
+
+
+            </form>
+        </div>
+
+    </div>
+    <div style="text-align:center;cursor:pointer"><input form="addre" id="NextButtonInShoppingCart" type="submit" value="التالي"></div>
+</div>
+<div id="B" style="display:none;text-align:center">
+
+    @{ViewData["Title"] = "ComplateOrders";}
+
+    <i style="color:rgb(69, 167, 135);margin:15px" class="fa fa-check-circle fa-4x"></i>
+    <br />
+    <h3 style="color:rgb(69, 167, 135);margin:15px"> تم بنجاح ارسال طلبك وجاري التحقق منه... </h3>
+    <span style="color:rgb(69, 167, 135);margin:15px">انتقل الئ <a href="@Url.Action("HomePage","Store")">الصفحة الرئيسية</a></span>
+    <br />
+    <br />
+</div>
+
+<!-- End Contenet -->
+@section fileupload{
+
+    <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        completed = function () {
+            $("#A").hide();
+            $("#B").show();
+        };
+    </script>
+}

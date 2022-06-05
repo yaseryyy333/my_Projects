@@ -1,0 +1,8 @@
+﻿@inject Matjary.Data.ApplicationDbContext _context;
+
+@{
+    Layout = "_Layout";
+
+    ViewBag.catrgory = new SelectList(_context.Categories, "Id", "CategoryName");
+
+}

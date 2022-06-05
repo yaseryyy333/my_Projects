@@ -1,0 +1,50 @@
+﻿@model Matjary.Models.VatTable
+
+@{
+    ViewData["Title"] = "تعديل الضريبة";
+    Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+}
+
+
+
+<!--Start Page Content-->
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title">
+            <i class="fa fa-cog"></i>
+            <h6>الضريبة</h6>
+            <i class="fa fa-angle-left"></i>
+            <h6>تعديل معلومات الضريبة</h6>
+        </div>
+        <div class="page-info shadow">
+            <div class="title">
+                <i class="fa fa-cog"></i>
+                <h6>تعديل معلومات الضريبة</h6>
+            </div>
+            <div class="content">
+                <form asp-route-id="@Model.Id" asp-action="EditTax">
+                    <!--Add Form Details Here-->
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-12 col-form-label">الضريبة :</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input type="text" class="form-control" asp-for="VatRate">
+                                    <input type="hidden" class="form-control" asp-for="Id" value="@Model.Id">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-btn">
+                        <button type="submit" class="btn">تحديث المعلومات</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page Content-->
+
+@section scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

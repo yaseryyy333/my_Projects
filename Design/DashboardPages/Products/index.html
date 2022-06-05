@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Ibrahim BarBouD">
+    <title>Product List</title>
+    <!--CSS file-->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="../css/all.min.css" rel="stylesheet" />
+    <link href="../css/main.css" rel="stylesheet" />
+    <!--Google font-->
+    <link rel="stylesheet" href="../css/Tajawalfont.css">
+</head>
+<body>
+    <!--Start Mobile Navigation-->
+    <div class="mobile-nav" id="mobile-navigation">
+        <div class="close-nav">
+            <i class="fa fa-times" onclick="closeMobileNav()"></i>
+        </div>
+        <div class="list">
+            <ul class="navbar-nav">
+                <li>
+                    <a href="#">
+                        <span>الصفحة الرئيسية</span>
+                    </a>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>فواتير المشتريات</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة فواتير المشتريات</a></li>
+                        <li><a href="#">إنشاء فاتورة مشتريات</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>فواتير المبيعات</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة فواتير المبيعات</a></li>
+                        <li><a href="#">إنشاء فاتورة مبيعات</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>عروض الاسعار</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة عروض الاسعار</a></li>
+                        <li><a href="#">إنشاء عرض سعر</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>المنتجات</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة المنتجات</a></li>
+                        <li><a href="#">إنشاء منتج</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>الطلبات</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة الطلبات المكتملة</a></li>
+                        <li><a href="#">قائمة الطلبات الغير مكتملة</a></li>
+                        <li><a href="#">إنشاء طلب</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>العملاء</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة العملاء</a></li>
+                        <li><a href="#">إنشاء عميل</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>الموردين</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة الموردين</a></li>
+                        <li><a href="#">إنشاء مورد</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>المستخدمين</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">قائمة المستخدمين</a></li>
+                        <li><a href="#">إنشاء مستخدم</a></li>
+                    </ul>
+                </li>
+                <li class="nav-link" onclick="displayLink(this)">
+                    <a href="#">
+                        <span>الاعدادات</span>
+                    </a>
+                    <ul class="hidden-list">
+                        <li><a href="#">معلومات المنشأة</a></li>
+                        <li><a href="#">الفئات</a></li>
+                        <li><a href="#">الضرائب</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--End Mobile Navigation-->
+    <!--Start Wrapper-->
+    <div class="wrapper">
+        <!--Start Right Bar-->
+        <ul class="navbar-nav right-bar" id="rightBar">
+            <a href="#" class="brand-logo">
+                <img src="../img/Logo.svg" alt="Matjary-logo" title="matjary logo">
+            </a>
+            <div class="brand-content">
+                <a href="#" class="brand-link">
+                    <i class="fa fa-eye"></i>
+                    عرض صفحة المتجر
+                </a>
+            </div>
+            <li class="nav-item active">
+                <a href="#">
+                    <i class="fa fa-home fa-fw right-icon"></i>
+                    <span>الصفحة الرئيسية</span>
+                </a>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-file-invoice fa-fw right-icon"></i>
+                    <span>فواتير المشتريات</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة فواتير المشتريات</a></li>
+                    <li><a href="#">إنشاء فاتورة مشتريات</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-file-invoice-dollar fa-fw right-icon"></i>
+                    <span>فواتير المبيعات</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة فواتير المبيعات</a></li>
+                    <li><a href="#">إنشاء فاتورة مبيعات</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-layer-group fa-fw right-icon"></i>
+                    <span>عروض الاسعار</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة عروض الاسعار</a></li>
+                    <li><a href="#">إنشاء عرض سعر</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fab fa-product-hunt fa-fw right-icon"></i>
+                    <span>المنتجات</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة المنتجات</a></li>
+                    <li><a href="#">إنشاء منتج</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-shopping-bag fa-fw right-icon"></i>
+                    <span>الطلبات</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة الطلبات المكتملة</a></li>
+                    <li><a href="#">قائمة الطلبات الغير مكتملة</a></li>
+                    <li><a href="#">إنشاء طلب</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-users fa-fw right-icon"></i>
+                    <span>العملاء</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة العملاء</a></li>
+                    <li><a href="#">إنشاء عميل</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-user-friends fa-fw right-icon"></i>
+                    <span>الموردين</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة الموردين</a></li>
+                    <li><a href="#">إنشاء مورد</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-user-circle fa-fw right-icon"></i>
+                    <span>المستخدمين</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">قائمة المستخدمين</a></li>
+                    <li><a href="#">إنشاء مستخدم</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" onclick="displayList(this)">
+                <a href="#">
+                    <i class="fa fa-cog fa-fw right-icon"></i>
+                    <span>الاعدادات</span>
+                    <i class="fa fa-angle-left left-icon"></i>
+                </a>
+                <ul class="hidden-list">
+                    <li><a href="#">معلومات المنشأة</a></li>
+                    <li><a href="#">الفئات</a></li>
+                    <li><a href="#">الضرائب</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!--End Right Bar-->
+        <!--Start Content Wrapper-->
+        <div class="content-wrapper">
+            <!--Start Top Bar-->
+            <div class="top-bar">
+                <div class="right-content">
+                    <i class="fa fa-bars" onclick="showMobileNav()"></i>
+                    <h3>متجر المكلا للعطور</h3><!--Put The name of the Store Here!-->
+                </div>
+                <div class="left-content">
+                    <h6 id="userInfo" onclick="showUserLinks()">
+                        <i class="fa fa-user"></i>
+                        <span>Ibrahim BarBouD</span>
+                        <i class="fa fa-angle-down"></i>
+                    </h6>
+                    <div id="userLinks" class="shadow">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-user"></i>تعديل الملف الشخصي</a></li>
+                            <li><a href="#"><i class="fa fa-sign-out-alt"></i>تسجيل خروج</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--End Top Bar-->
+            <!--Start Page Content-->
+            <div class="page-content">
+                <div class="container-fluid">
+                    <div class="page-title">
+                        <i class="fab fa-product-hunt"></i>
+                        <h6>المنتجات</h6>
+                        <i class="fa fa-angle-left"></i>
+                        <h6>قائمة المنتجات</h6>
+                    </div>
+                    <div class="page-info shadow">
+                        <div class="title">
+                            <i class="fab fa-product-hunt"></i>
+                            <h6>قائمة المنتجات</h6>
+                        </div>
+                        <div class="content">
+                            <div class="before-table">
+                                <div class="add-button">
+                                    <a class="btn" href="#">
+                                        <i class="fa fa-plus"></i>
+                                        اضف منتج جديد
+                                    </a>
+                                </div>
+                                <div class="search-form">
+                                    <form action="" method=""><!--Add Form Details Here-->
+                                        <select class="custom-select mr-sm-2" name="">
+                                            <option selected="">بحث بحسب</option>
+                                            <option value="">رقم المنتج</option>
+                                        </select>
+                                        <input type="text" class="form-control" name="">
+                                        <input type="submit" class="btn ml-sm-2" value="بحث">
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="table-info">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>اسم المنتج</th>
+                                            <th>رمز المنتج</th>
+                                            <th>سعر البيع</th>
+                                            <th>الكمية</th>
+                                            <th>عمليات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>عطر رجالي</td>
+                                            <td>123456789</td>
+                                            <td>200 S.R</td>
+                                            <td>20 PCs</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-eye fa-fw op"></i></a>
+                                                <a href="#"><i class="fa fa-edit fa-fw op"></i></a>
+                                                <a href="#"  onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="pagin"><!--Put Pagination ASP CORE Here-->
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Page Content-->
+        </div>
+        <!--End Content Wrapper-->
+    </div>
+    <!--End Wrapper-->
+    <script src="../js/jquery-3.4.1.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

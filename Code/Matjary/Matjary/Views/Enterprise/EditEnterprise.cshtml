@@ -1,0 +1,108 @@
+﻿@model Matjary.Models.Owner
+
+@{
+    ViewData["Title"] = "تعديل معلومات المؤسسة";
+    Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+}
+
+
+
+
+<!--Start Page Content-->
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title">
+            <i class="fa fa-cog"></i>
+            <h6>الاعدادات</h6>
+            <i class="fa fa-angle-left"></i>
+            <h6>تعديل معلومات المنشأة</h6>
+        </div>
+        <div class="page-info shadow">
+            <div class="title">
+                <i class="fa fa-cog"></i>
+                <h6>تعديل معلومات المنشأة</h6>
+            </div>
+            <div class="content">
+                <form asp-action="EditEnterprise" enctype="multipart/form-data">
+                    <!--Add Form Details Here-->
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-12 col-form-label">اسم الشركة :</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input type="text" class="form-control" asp-for="Name">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-12 col-form-label">العنوان :</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input type="text" class="form-control" asp-for="Title">
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-12 col-form-label">رقم الهاتف :</label>
+                                <div class="col-md-3 col-sm-12">
+                                    <input type="text" class="form-control text-left" asp-for="Telephone">
+                                    <span asp-validation-for="Telephone" class="text-danger"></span>
+                                </div>
+                                <label class="col-md-3 col-sm-12 col-form-label">رقم الجوال :</label>
+                                <div class="col-md-3 col-sm-12">
+                                    <input type="text" class="form-control text-left" asp-for="Mobile">
+                                    <span asp-validation-for="Mobile" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-12 col-form-label">الإيميل :</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input type="email" class="form-control" asp-for="Email">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-12 col-form-label">السجل التجاري :</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input type="text" class="form-control" asp-for="Commercial">
+                                    <span asp-validation-for="Commercial" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-12 col-form-label">الرقم الضريبي :</label>
+                                <div class="col-md-9 col-sm-12">
+                                    <input type="text" class="form-control" asp-for="NumberVat">
+                                    <span asp-validation-for="NumberVat" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">الشعار :</label>
+                                <div class="col-sm-9">
+                                    <input type="file" class="form-control" asp-for="File">
+                                </div>
+                                <label class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <span asp-validation-for="File" class="text-danger"></span>
+                                    <br />
+                                    <small class="text text-danger">الامتدادت المسموحة png,jpg,jcpg</small>
+                                    <input type="hidden" asp-for="Logo" />
+                                </div>
+                                <input type="hidden" name="oldLogo" value="@Model.Logo" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <img src="~/Dashboard/img/@Html.DisplayFor(model => model.Logo)" alt="Company Logo" class="owner-image">
+                        </div>
+                    </div>
+                    <div class="submit-btn">
+                        <button type="submit" class="btn">تحديث المعلومات</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page Content-->
+
+@section scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

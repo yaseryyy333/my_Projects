@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Matjary.Models.Products>
+@{
+    ViewData["Title"] = "بحث المنتج";
+    Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+}
+
+
+
+
+<!--Start Page Content-->
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="page-title">
+            <i class="fab fa-product-hunt"></i>
+            <h6>المنتجات</h6>
+            <i class="fa fa-angle-left"></i>
+            <h6>قائمة المنتجات</h6>
+            <i class="fa fa-angle-left"></i>
+            <h6>نتيجة البحث</h6>
+        </div>
+        <div class="page-info shadow">
+            <div class="title">
+                <i class="fab fa-product-hunt"></i>
+                <h6>نتيجة البحث</h6>
+            </div>
+            <div class="content">
+                <div class="before-table">
+                    <div class="add-button">
+                        <a class="btn" asp-action="Create">
+                            <i class="fa fa-plus"></i>
+                            اضف منتج جديد
+                        </a>
+                    </div>
+                    <div class="search-form">
+                        <form asp-action="Search" method="post">
+                            <!--Add Form Details Here-->
+                            <select class="custom-select mr-sm-2" name="type">
+                                <option selected disabled>بحث بحسب</option>
+                                <option value="name">اسم المنتج</option>
+                                <option value="sku">رمز المنتج</option>
+                            </select>
+                            <input type="text" class="form-control" name="value">
+                            <input type="submit" class="btn ml-sm-2" value="بحث">
+                        </form>
+                    </div>
+                </div>
+                <div class="table-info">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>اسم المنتج</th>
+                                <th>رمز المنتج</th>
+                                <th>سعر البيع</th>
+                                <th>الكمية</th>
+                                <th>عمليات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int count = 0;
+                            }
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @{
+                                            count++;
+                                            @:@count
+                                        }
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Sku)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.SellPrice)  SR</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Store.Qty) Pcs</td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-eye fa-fw op"></i></a>
+                                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit fa-fw op"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('هل انت متأكد')"><i class="fa fa-trash fa-fw op"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagin">
+                    <!--Put Pagination ASP CORE Here-->
+                    <partial name="_Pager" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Page Content-->
